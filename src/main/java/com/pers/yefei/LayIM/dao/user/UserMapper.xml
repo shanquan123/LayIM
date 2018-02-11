@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pers.yefei.LayIM.dao.user">
+    <resultMap id="user" type="com.pers.yefei.LayIM.pojo.User">
+        <id column="userID" property="userID"></id>
+        <result column="userName" property="userName"></result>
+
+    </resultMap>
+
+
+    <!-- 根据用户名统计用户数量  注册校验时使用 -->
+    <select id="countUserByUserName" resultType="int" parameterType="string">
+        select count(1) from tbl_user where userName = #{userName};
+    </select>
+
+    <!-- 添加用户 注册使用 -->
+    <insert id="insertUser" parameterType="com.pers.yefei.LayIM.pojo.User">
+      <selectKey resultType="int" keyProperty="userID" order="AFTER">
+          select last_insert_id()
+      </selectKey>
+        insert into tbl_user (userName, nickName, signature, avatar, password, registerTime ) values
+        (#{userName}, #{nickName}, #{signature}, #{avatar}, #{password}, #{registerTime} )
+
+    </insert>
+
+    <!-- 添加默认用户组 注册时使用 -->
+    <insert id="inserDefaulttUserGroup" parameterType="int">
+        insert into tbl_user_group (userID, groupName) select #{userID}, groupName from tbl_user_group_default
+    </insert>
+
+
+    <!-- 查询用户信息  登录时使用 -->
+    <select id="queryUserByLoginInfo" resultType="com.pers.yefei.LayIM.pojo.User" parameterType="map">
+        select * from tbl_user where (userID = #{userName} or userName = #{userName}) and password = #{password}
+    </select>
+
+
+    <!-- 查找用户  添加好友时使用 -->
+    <select id="queryUserByKeywords" resultType="com.pers.yefei.LayIM.pojo.User" parameterType="map">
+      select * from tbl_user where userID = #{keywords} or userName like concat('%', #{keywords} , '%') or nickName like concat('%', #{keywords}, '%') limit #{offset}, #{pageSize}
+    </select>
+
+    <!-- 统计用户  添加好友时使用 -->
+    <select id="countUserByKeywords" resultType="int" parameterType="map">
+        select count(1) from tbl_user where userID = #{keywords} or userName like concat('%', #{keywords} , '%') or nickName like concat('%', #{keywords}, '%')
+    </select>
+
+    <!-- 查询用户分组是否存在 添加好友时使用 -->
+    <select id="countUserGroupID" parameterMap="map" resultType="int">
+      select count(1) from tbl_user_group where userID = #{userID} and groupID = #{groupID}
+    </select>
+
+    <!-- 添加好友申请 -->
+    <insert id="insertUserApplyFriend" parameterType="com.pers.yefei.LayIM.pojo.UserFriendApplyModel">
+      insert into tbl_user_apply_friend (applyUserID, toUserID, userGroupID, status, createTime, modifiedTime) values
+      (${applyUserID}, ${toUserID}, ${userGroupID}, ${status}, ${createTime}, ${modifiedTime})
+    </insert>
+
+    <!-- 处理好友申请 -->
+    <update id="updateUserApplyFriend" parameterType="com.pers.yefei.LayIM.pojo.UserFriendApplyModel">
+        update tbl_user_apply_friend set status = #{status} and modifiedTime = #{modifiedTime} where  itemID = #{applyID} and applyUserID = #{applyUserID} and toUserID = #{toUserID}
+    </update>
+
+    <!-- 统计最近一段时间内 对某已用户发起的添加好友申请次数 -->
+    <select id="countUserApplied" parameterType="map">
+        select count(1) from tbl_user_apply_friend where applyUserID = #{applyUserID} and toUserID = #{toUserID} and createTime > #{limitTime}
+    </select>
+
+    <!-- 根据userID 查询 user -->
+    <select id="getUserByUserID" parameterType="int" resultType="com.pers.yefei.LayIM.pojo.User">
+        select * from tbl_user where userID = #{userID} limit 1;
+    </select>
+
+
+
+    <!--  分组操作  TODO-->
+    <update id="updateUserGroup"></update>
+
+    <insert id="insertUserGroup"></insert>
+
+    <update id="deleteUserGroup"></update>
+</mapper>
+
+
+
+

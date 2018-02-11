@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pers.yefei.LayIM.dao.msg">
+    <resultMap id="userMsg" type="com.pers.yefei.LayIM.pojo.UserMsg"></resultMap>
+
+
+
+    <!-- 添加消息 发送消息时使用-->
+    <insert id="insertUserMsg" parameterType="com.pers.yefei.LayIM.pojo.UserMsg">
+      <selectKey resultType="int" keyProperty="msgID" order="AFTER">
+          select last_insert_id()
+      </selectKey>
+        insert into tbl_user_msg (fromUserID, toUserID, msgContent, msgType, resourcePath, createTime, lastReceiveTime ) values
+        (#{fromUserID}, #{toUserID}, #{msgContent}, #{msgType}, #{resourcePath}, #{createTime} , #{lastReceiveTime} )
+    </insert>
+
+
+    <!-- 更新消息状态 成功推送消息时使用 -->
+    <update id="updateUserMsg" parameterType="com.pers.yefei.LayIM.pojo.UserMsg">
+        update tbl_user_msg set status = #{status}, lastReceiveTime = #{lastReceiveTime}  where msgID = #{msgID} and fromUserID = #{fromUserID} and toUserID = #{toUserID}
+    </update>
+
+    <!-- 根据msgID 查询消息 -->
+    <select id="getUserMsg" parameterType="map">
+        select * from tbl_user_msg where msgID = #{msgID} limit 1
+    </select>
+</mapper>
+
+
+
+

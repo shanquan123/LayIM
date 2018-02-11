@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:task="http://www.springframework.org/schema/task" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+	
+	<!-- 凌晨3点半 扫描用户所有的cache信息  -->
+<!-- 	<task:scheduler id="myScheduler" pool-size="5"/> -->
+<!-- 	<task:scheduled-tasks scheduler="myScheduler"> -->
+<!-- 	    <task:scheduled ref="cacheManagerTask" method="scanUserCacheExpires" cron="0 30 3 * * ?"/> -->
+<!-- 	</task:scheduled-tasks> -->
+<!--<bean class="com.google.code.kaptcha.impl.DefaultKaptcha">-->
+    	<!--<property name="config">-->
+    		<!--<bean class="com.google.code.kaptcha.util.Config">-->
+    			<!--<constructor-arg type="java.util.Properties">-->
+    				<!--<props>-->
+    					<!--<prop key="kaptcha.border">no</prop>-->
+						<!--<prop key="kaptcha.image.width">65</prop>-->
+						<!--<prop key="kaptcha.image.height">30</prop>-->
+						<!--<prop key="kaptcha.textproducer.font.size">20</prop>-->
+						<!--<prop key="kaptcha.word.impl">com.lepu.hst.api.util.captcha.MyWordRenderer</prop>-->
+						<!--<prop key="kaptcha.obscurificator.impl">com.lepu.hst.api.util.captcha.DefaultRipple</prop>-->
+					<!--</props>-->
+				<!--</constructor-arg>-->
+			<!--</bean>-->
+        <!--</property>-->
+    <!--</bean>-->
+    <!--<bean id="weixinCoreConfigCenter"  class="com.lepu.medstar.web.www.controller.WeixinCoreConfigCenter">-->
+    <!--</bean>-->
+<!--&lt;!&ndash;     <bean id="ecshopSupport" class="com.lepu.hst.api.component.ecshop.ECShopSupport"> &ndash;&gt;-->
+<!--&lt;!&ndash; 	</bean> &ndash;&gt;-->
+    <!--<bean class="com.lepu.medstar.web.component.config.MedStarSupport" id="medstarSupport"></bean>-->
+    <!---->
+</beans>
+

@@ -1,0 +1,10 @@
+@charset "utf-8";
+
+.login-wrap{width: 70%;margin: 0 auto;border-radius:6px;}
+.login-logo{display:block; width: 80px;margin: 18% auto 0;}
+.login-bg{position: fixed;left: 0;top: 0;z-index: -1; width: 100%;height: 100%; background: url(../images/login-bg.jpg)no-repeat center 0;background-size:cover;opacity: 1;}
+.login-con{margin-top: 30px;}
+.login-con input,.login-con button{display:block;width:100%;height:40px;border: none;border-radius:20px;outline: 0;line-height: 40px;}
+.login-con input{margin-top: 12px;border: none;text-indent: 25px;}
+.login-con button{margin-top: 40px;background: #3FDD86;color: #fff;font-size: 15px;}
+.login-con p{margin-top: 12px; text-align: center;color: #fff;}

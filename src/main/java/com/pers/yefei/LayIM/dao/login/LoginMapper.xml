@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pers.yefei.LayIM.dao.login">
+    <resultMap id="userLogin" type="com.pers.yefei.LayIM.pojo.UserLogin"></resultMap>
+
+
+
+    <!-- 根据accessToken 统计登录信息 创建accessToken时使用 -->
+    <select id="countUserLoginByAccessToken" resultType="com.pers.yefei.LayIM.pojo.UserLogin" parameterType="string">
+        select count(*) from tbl_user_login where accessToken = #{accessToken}
+    </select>
+
+    <!-- 添加登录信息-->
+    <insert id="insertUserLogin" parameterType="com.pers.yefei.LayIM.pojo.UserLogin">
+      <selectKey resultType="int" keyProperty="itemID" order="AFTER">
+          select last_insert_id()
+      </selectKey>
+        insert into tbl_user_login (userID, accessToken, createTime, updateTime, expiredTime, isValid ) values
+        (#{userID}, #{accessToken}, #{createTime}, #{updateTime}, #{expiredTime}, #{isValid} )
+    </insert>
+
+
+    <!-- 根据accessToken 查询登录信息 自动登录时使用 -->
+    <select id="queryUserLoginByAccessToken" resultType="com.pers.yefei.LayIM.pojo.UserLogin" parameterType="string">
+        select * from tbl_user_login where accessToken = #{accessToken} and isValid = 1 and expiredTime > now() limit 1
+    </select>
+
+    <!-- 根据accessToken 修改登录信息 自动登录时使用 -->
+    <update id="updateUserLoginByAccessToken" parameterType="com.pers.yefei.LayIM.pojo.UserLogin" >
+      update tbl_user_login set updateTime = #{updateTime}, expiredTime = #{expiredTime}, isValid = #{isValid} where userID = #{useID} and accessToken = #{accessToken}
+    </update>
+
+
+    <!-- 根据accessToken 把用户登录信息设置为无效  退出登陆时使用 -->
+    <update id="setLoginInvalidByAccessToken" parameterType="string">
+        update tbl_user_login set updateTime = #{updateTime}, isValid = 0 where accessToken = #{accessToken}
+    </update>
+
+    <!-- 根据userID 把用户登录信息设置为无效  只允许一个用户同时登录时使用 -->
+    <update id="setLoginInvalidByUserID" parameterType="int">
+        update tbl_user_login set updateTime = #{updateTime}, isValid = 0 where userID = #{userID}
+    </update>
+
+
+</mapper>
+
+
+
+
