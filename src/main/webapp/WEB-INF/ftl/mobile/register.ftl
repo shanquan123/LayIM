@@ -80,7 +80,7 @@
 					alert('注册成功！')
 					setTimeout(function(){
 					    location.href = '/rest/mobile/mobile.html'
-					}, 1000)
+					}, 2000)
 				}
 			})
 		}

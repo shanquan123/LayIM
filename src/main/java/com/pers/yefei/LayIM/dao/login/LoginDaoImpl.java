@@ -25,9 +25,7 @@ public class LoginDaoImpl implements ILoginDao{
      * @return
      */
     public int countUserLoginByAccessToken(String accessToken){
-        System.out.println(sqlSession);
-        List<Object> list = sqlSession.selectList("com.pers.yefei.LayIM.dao.login.countUserLoginByAccessToken", accessToken);
-        return sqlSession.selectOne("com.pers.yefei.LayIM.dao.login.countUserLoginByAccessToken", accessToken);
+         return sqlSession.selectOne("com.pers.yefei.LayIM.dao.login.countUserLoginByAccessToken", accessToken);
     }
 
     @Override

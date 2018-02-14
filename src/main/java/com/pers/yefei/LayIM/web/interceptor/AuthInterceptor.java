@@ -5,8 +5,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.pers.yefei.LayIM.component.SessionManager;
+import com.pers.yefei.LayIM.pojo.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 
@@ -14,9 +17,11 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AuthInterceptor.class);
 	
-	private static final String LOGIN_URL = "/admin/login/to_login";
-	private static final String SUPER_ADMIN_LOGIN_URL = "/admin/login/to/super_admin";
-	
+	private static final String LOGIN_URL = "/rest/mobile/login.html";
+
+	@Autowired
+	private SessionManager sessionManager;
+
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -24,6 +29,13 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		try {
 			String contextPath = request.getContextPath();
 			String requestUri = request.getRequestURI();
+
+			User user = sessionManager.getUserFromSession(request);
+			if (user == null){
+				response.sendRedirect(contextPath + "/rest/mobile/login.html");
+				return false;
+			}
+
 
 			return true;
 		} catch (Exception e ) {

@@ -54,7 +54,7 @@ public class SessionManager {
 
 
     public User getUserFromSession(HttpServletRequest request) {
-        String accessToken = getAccessTokenFromAttr(request);
+        String accessToken = getAccessTokenFromCookie(request);
 
         return getUserFromSession(accessToken);
     }
