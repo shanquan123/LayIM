@@ -7,6 +7,7 @@ import com.pers.yefei.LayIM.pojo.User;
 import com.pers.yefei.LayIM.service.login.ILoginService;
 import com.pers.yefei.LayIM.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -16,18 +17,18 @@ import java.util.UUID;
 
 public class SessionManager {
 
-    private static final String ACCESS_TOKEN_EXPIRED_CONFIG_KEY = "access_token_expired_date";
+    private final String ACCESS_TOKEN_EXPIRED_CONFIG_KEY = "access_token_expired_date";
 
-    private static final String LAYIM_SESSION_ID = "layim_session_id";
-
-    @Autowired
-    private static ILoginService loginService;
+    private final String LAYIM_SESSION_ID = "layim_session_id";
 
     @Autowired
-    private static LayimSupport layimSupport;
+    private ILoginService loginService;
+
+    @Autowired
+    private LayimSupport layimSupport;
 
 
-    public static String genAccessToken(){
+    public String genAccessToken(){
 
         String accessToken = UUID.randomUUID().toString();
 
@@ -40,7 +41,7 @@ public class SessionManager {
     }
 
 
-    public static Date genAccessTokenExpiredTime(){
+    public Date genAccessTokenExpiredTime(){
 
         int expiredDay = Integer.valueOf(layimSupport.getValue(ACCESS_TOKEN_EXPIRED_CONFIG_KEY));
 
@@ -52,13 +53,13 @@ public class SessionManager {
 
 
 
-    public static User getUserFromSession(HttpServletRequest request) {
+    public User getUserFromSession(HttpServletRequest request) {
         String accessToken = getAccessTokenFromAttr(request);
 
         return getUserFromSession(accessToken);
     }
 
-    private static User getUserFromSession(String accessToken) {
+    private User getUserFromSession(String accessToken) {
 
 		if(accessToken == null || accessToken.isEmpty()){
 			return null;
@@ -68,19 +69,19 @@ public class SessionManager {
     }
 
 
-    private static String getAccessTokenFromAttr(HttpServletRequest request) {
+    private String getAccessTokenFromAttr(HttpServletRequest request) {
         return  (String)request.getAttribute( LAYIM_SESSION_ID );
     }
 
 
 
-    public static void saveAccessToken2Cookie(String accessToken, HttpServletResponse response) {
+    public void saveAccessToken2Cookie(String accessToken, HttpServletResponse response) {
         Cookie cookie = new Cookie(LAYIM_SESSION_ID, accessToken);
         cookie.setPath("/");
         response.addCookie(cookie);
     }
 
-    public static String getAccessTokenFromCookie(HttpServletRequest request) {
+    public String getAccessTokenFromCookie(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie: cookies) {

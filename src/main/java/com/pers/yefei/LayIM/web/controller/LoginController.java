@@ -2,7 +2,6 @@ package com.pers.yefei.LayIM.web.controller;
 
 import com.pers.yefei.LayIM.component.SessionManager;
 import com.pers.yefei.LayIM.pojo.User;
-import com.pers.yefei.LayIM.service.IndexService;
 import com.pers.yefei.LayIM.service.login.ILoginService;
 import com.pers.yefei.LayIM.utils.ParameterUtil;
 import com.pers.yefei.LayIM.utils.ResponseUtil;
@@ -29,10 +28,13 @@ import java.util.HashMap;
 @RequestMapping("/rest/mobile")
 public class LoginController {
 
-    final static Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
+    final static Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
     private ILoginService loginService;
+
+    @Autowired
+    private SessionManager sessionManager;
 
 
     @RequestMapping("/login.html")
@@ -81,7 +83,7 @@ public class LoginController {
 
             String accessToken = (String)result.get("accessToken");
 
-            SessionManager.saveAccessToken2Cookie(accessToken, response);
+            sessionManager.saveAccessToken2Cookie(accessToken, response);
 
             ResponseUtil.writeResponseSuccess(response);
 
@@ -110,7 +112,7 @@ public class LoginController {
             HashMap result = loginService.userLogin(userName, password);
 
             String accessToken = (String)result.get("accessToken");
-            SessionManager.saveAccessToken2Cookie(accessToken, response);
+            sessionManager.saveAccessToken2Cookie(accessToken, response);
 
 
             if (!result.get("code").equals("1")){
@@ -136,7 +138,7 @@ public class LoginController {
     public void ajaxSignOut(HttpServletRequest request, HttpServletResponse response) throws IOException, InterruptedException {
 
         try{
-            String accessToken = SessionManager.getAccessTokenFromCookie(request);
+            String accessToken = sessionManager.getAccessTokenFromCookie(request);
             loginService.userLogout(accessToken);
             ResponseUtil.writeResponseSuccess(response);
 

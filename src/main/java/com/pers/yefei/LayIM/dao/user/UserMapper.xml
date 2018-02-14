@@ -10,7 +10,7 @@
 
     <!-- 根据用户名统计用户数量  注册校验时使用 -->
     <select id="countUserByUserName" resultType="int" parameterType="string">
-        select count(1) from tbl_user where userName = #{userName};
+        select ifnull(count(1), 0) from tbl_user where userName = #{userName};
     </select>
 
     <!-- 添加用户 注册使用 -->
@@ -42,12 +42,12 @@
 
     <!-- 统计用户  添加好友时使用 -->
     <select id="countUserByKeywords" resultType="int" parameterType="map">
-        select count(1) from tbl_user where userID = #{keywords} or userName like concat('%', #{keywords} , '%') or nickName like concat('%', #{keywords}, '%')
+        select ifnull(count(1), 0) from tbl_user where userID = #{keywords} or userName like concat('%', #{keywords} , '%') or nickName like concat('%', #{keywords}, '%')
     </select>
 
     <!-- 查询用户分组是否存在 添加好友时使用 -->
-    <select id="countUserGroupID" parameterMap="map" resultType="int">
-      select count(1) from tbl_user_group where userID = #{userID} and groupID = #{groupID}
+    <select id="countUserGroupID" parameterType="map" resultType="int">
+      select ifnull(count(1), 0) from tbl_user_group where userID = #{userID} and groupID = #{groupID}
     </select>
 
     <!-- 添加好友申请 -->
@@ -63,7 +63,7 @@
 
     <!-- 统计最近一段时间内 对某已用户发起的添加好友申请次数 -->
     <select id="countUserApplied" parameterType="map">
-        select count(1) from tbl_user_apply_friend where applyUserID = #{applyUserID} and toUserID = #{toUserID} and createTime > #{limitTime}
+        select ifnull(count(1), 0) from tbl_user_apply_friend where applyUserID = #{applyUserID} and toUserID = #{toUserID} and createTime > #{limitTime}
     </select>
 
     <!-- 根据userID 查询 user -->

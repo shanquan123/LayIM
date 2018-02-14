@@ -16,16 +16,16 @@ import java.io.IOException;
 
 @Controller
 @RequestMapping("/rest/mobile")
-public class IndexController {
+public class DemonController {
 
-    final static Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
+    final static Logger LOGGER = LoggerFactory.getLogger(DemonController.class);
 
     @Autowired
     private IndexService indexService;
 
     @RequestMapping("/hello.html")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response) throws IOException, InterruptedException {
-        ModelAndView mv = new ModelAndView("mobile/index");
+        ModelAndView mv = new ModelAndView("mobile/demo/pc");
         mv.addObject("hello", "freemarker hello");
 
         return mv;

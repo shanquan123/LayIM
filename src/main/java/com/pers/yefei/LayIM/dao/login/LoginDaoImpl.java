@@ -5,6 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.pers.yefei.LayIM.pojo.UserLogin;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+
 
 @Repository("loginDao")
 public class LoginDaoImpl implements ILoginDao{
@@ -21,7 +25,8 @@ public class LoginDaoImpl implements ILoginDao{
      * @return
      */
     public int countUserLoginByAccessToken(String accessToken){
-
+        System.out.println(sqlSession);
+        List<Object> list = sqlSession.selectList("com.pers.yefei.LayIM.dao.login.countUserLoginByAccessToken", accessToken);
         return sqlSession.selectOne("com.pers.yefei.LayIM.dao.login.countUserLoginByAccessToken", accessToken);
     }
 
@@ -38,17 +43,24 @@ public class LoginDaoImpl implements ILoginDao{
 
     @Override
     public int updateUserLoginByAccessToken(UserLogin userLogin){
+        userLogin.setUpdateTime(new Date());
         return sqlSession.selectOne("com.pers.yefei.LayIM.dao.login.updateUserLoginByAccessToken", userLogin);
     }
 
     @Override
     public int setLoginInvalidByAccessToken(String accessToken){
-        return sqlSession.update("setLoginInvalidByAccessToken", accessToken);
+        HashMap params = new HashMap();
+        params.put("accessToken", accessToken);
+        params.put("updateTime", new Date());
+        return sqlSession.update("com.pers.yefei.LayIM.dao.login.setLoginInvalidByAccessToken", params);
     }
 
     @Override
     public int setLoginInvalidByUserID(int userID){
-        return sqlSession.update("setLoginInvalidByUserID", userID);
+        HashMap params = new HashMap();
+        params.put("userID", userID);
+        params.put("updateTime", new Date());
+        return sqlSession.update("com.pers.yefei.LayIM.dao.login.setLoginInvalidByUserID", params);
     }
 
 

@@ -39,7 +39,6 @@
 
         var flag = true
         $items.each(function(i, item){
-
 			if( !$(item).val() ){
     			flag = false;
                 var itemName = $(item).attr('placeholder')
@@ -47,16 +46,13 @@
 
 				alert(msg)
 			}
-
-
-
         })
 
 		return flag;
     }
 
     function checkoutPassword(){
-        if( $("[name=password]").val() == $("[name=password]").val() ){
+        if( $("[name=password]").val() == $("[name=rePassword]").val() ){
             return true
 		}else{
             alert('<span style="color: red">两次输入密码不一致！</span>')
@@ -79,7 +75,22 @@
                 password: $.md5($('[name=password]').val())
 			}
 			var url = '/rest/mobile/register.ajax'
-			post(url, postData)
+			post(url, postData, function(response){
+			    if(response.code == 1){
+					alert('注册成功！')
+					setTimeout(function(){
+					    location.href = '/rest/mobile/mobile.html'
+					}, 1000)
+				}
+			})
+		}
+	})
+
+
+	$('[name=username]').blur(function(){
+	    var userName = $(this).val();
+	    if(userName){
+	        post('/rest/mobile/check_username.ajax',{userName:userName})
 		}
 	})
 

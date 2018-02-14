@@ -19,7 +19,6 @@ function confirm(smg, yesCallback){
 
 
 function post(url, postData, success){
-    var url = '/rest/mobile/register.ajax'
     $.post(url, postData, function(response){
         if(response.code == 1){
             if( typeof success == 'function')

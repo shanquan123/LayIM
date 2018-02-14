@@ -17,7 +17,7 @@ import java.io.IOException;
 @RequestMapping("/rest/mobile")
 public class MobileController {
 
-    final static Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
+    final static Logger LOGGER = LoggerFactory.getLogger(MobileController.class);
 
     @Autowired
     private IndexService indexService;

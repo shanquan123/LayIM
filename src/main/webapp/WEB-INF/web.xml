@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee"  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
-  <display-name>exam-web-www</display-name>
+  <display-name>LayIM</display-name>
   <context-param>
     <param-name>webAppRootKey</param-name>
-    <param-value>exam-web-www</param-value>
+    <param-value>LayIM</param-value>
   </context-param>
   <context-param>
     <param-name>log4jConfigLocation</param-name>
@@ -36,7 +36,7 @@
     </init-param>
     <init-param>
       <param-name>contextConfigLocation</param-name>
-      <param-value>/WEB-INF/config/web-application-config.xml</param-value>
+      <param-value></param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>

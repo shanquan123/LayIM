@@ -10,6 +10,7 @@ import com.pers.yefei.LayIM.utils.exception.AuthFialedException;
 import com.pers.yefei.LayIM.utils.exception.UserNameUsedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -26,6 +27,9 @@ public class LoginServiceImpl implements ILoginService{
     @Autowired
     private LayimSupport layimSupport;
 
+    @Autowired
+    private SessionManager sessionManager;
+
 
     @Override
     public boolean userNameExists(String userName){
@@ -36,6 +40,7 @@ public class LoginServiceImpl implements ILoginService{
         }
     }
 
+    @Transactional
     @Override
     public boolean userRegister(User user){
         /**
@@ -90,8 +95,8 @@ public class LoginServiceImpl implements ILoginService{
          * 添加登录信息
          */
 
-        String accessToken = SessionManager.genAccessToken();
-        Date expiredTime = SessionManager.genAccessTokenExpiredTime();
+        String accessToken = sessionManager.genAccessToken();
+        Date expiredTime = sessionManager.genAccessTokenExpiredTime();
 
         UserLogin userLogin = new UserLogin();
         userLogin.setAccessToken(accessToken);
@@ -111,7 +116,6 @@ public class LoginServiceImpl implements ILoginService{
 
     @Override
     public boolean accessTokenExists(String accessToken){
-        loginDao.queryUserLoginByAccessToken(accessToken);
 
         if (loginDao.countUserLoginByAccessToken(accessToken) == 0){
             return false;

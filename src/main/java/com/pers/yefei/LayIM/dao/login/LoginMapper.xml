@@ -6,8 +6,8 @@
 
 
     <!-- 根据accessToken 统计登录信息 创建accessToken时使用 -->
-    <select id="countUserLoginByAccessToken" resultType="com.pers.yefei.LayIM.pojo.UserLogin" parameterType="string">
-        select count(*) from tbl_user_login where accessToken = #{accessToken}
+    <select id="countUserLoginByAccessToken" resultType="int" parameterType="string">
+        select ifnull(count(*), 0) from tbl_user_login where accessToken = #{accessToken}
     </select>
 
     <!-- 添加登录信息-->
@@ -32,12 +32,12 @@
 
 
     <!-- 根据accessToken 把用户登录信息设置为无效  退出登陆时使用 -->
-    <update id="setLoginInvalidByAccessToken" parameterType="string">
+    <update id="setLoginInvalidByAccessToken" parameterType="map">
         update tbl_user_login set updateTime = #{updateTime}, isValid = 0 where accessToken = #{accessToken}
     </update>
 
     <!-- 根据userID 把用户登录信息设置为无效  只允许一个用户同时登录时使用 -->
-    <update id="setLoginInvalidByUserID" parameterType="int">
+    <update id="setLoginInvalidByUserID" parameterType="map">
         update tbl_user_login set updateTime = #{updateTime}, isValid = 0 where userID = #{userID}
     </update>
 

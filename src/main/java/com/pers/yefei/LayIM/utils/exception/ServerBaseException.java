@@ -22,18 +22,18 @@ public abstract class ServerBaseException extends RuntimeException {
 	}
 
 	public ServerBaseException(ResponseCodeEnum resCode){
-		this.code= resCode.getCode();
+		this.code = resCode.getCode();
 		this.reason = resCode.getReason();
 	}
 	
 	public ServerBaseException(ResponseCodeEnum resCode,String verboseMsg){
-		this.code= resCode.getCode();
+		this.code = resCode.getCode();
 		this.reason = resCode.getReason() + verboseMsg;
 	}
 	
 	public ServerBaseException (ResponseCodeEnum resCode,String verboseMsg, Exception ex){
 		super(ex);
-		this.code= resCode.getCode();
+		this.code = resCode.getCode();
 		this.reason = resCode.getReason() + verboseMsg;
 	}
 	
@@ -51,7 +51,7 @@ public abstract class ServerBaseException extends RuntimeException {
 	
 	@Override
 	public String toString(){
-		return String.format("ServerBaseException - %s [code= %s, message = %s, reason =%s]", this.getClass().getName(),  this.code, this.getMessage(), this.getReason());
+		return String.format("ServerBaseException - %s [code = %s, message = %s, reason = %s]", this.getClass().getName(),  this.code, this.getMessage(), this.getReason());
 
 	}
 }
