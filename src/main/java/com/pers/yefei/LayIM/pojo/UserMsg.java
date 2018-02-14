@@ -19,9 +19,9 @@ public class UserMsg {
 
     private Date createTime;
 
-    private Date lastReceiveTime;
+    private Date readTime;
 
-    private int status;
+    private boolean isRead = false;
 
     public int getMsgID() {
         return msgID;
@@ -79,19 +79,19 @@ public class UserMsg {
         this.createTime = createTime;
     }
 
-    public Date getLastReceiveTime() {
-        return lastReceiveTime;
+    public Date getReadTime() {
+        return readTime;
     }
 
-    public void setLastReceiveTime(Date lastReceiveTime) {
-        this.lastReceiveTime = lastReceiveTime;
+    public void setReadTime(Date readTime) {
+        this.readTime = readTime;
     }
 
-    public int getStatus() {
-        return status;
+    public boolean isRead() {
+        return isRead;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setRead(boolean read) {
+        isRead = read;
     }
 }

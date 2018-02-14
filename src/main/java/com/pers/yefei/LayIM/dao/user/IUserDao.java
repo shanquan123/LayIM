@@ -56,38 +56,5 @@ public interface IUserDao {
      */
     int countUserByKeywords(String keywords);
 
-    /**
-     * 查询用户分组是否存在 添加好友时使用
-     * @param userID
-     * @param groupID
-     * @return
-     */
-    int countUserGroupID(int userID, int groupID);
-
-
-    /**
-     * 添加好友申请
-     * @param userFriendApplyModel
-     * @return
-     */
-    int insertUserApplyFriend(UserFriendApplyModel userFriendApplyModel);
-
-    /**
-     * 处理好友申请
-     * @param userFriendApplyModel
-     * @return
-     */
-    int updateUserApplyFriend(UserFriendApplyModel userFriendApplyModel);
-
-
-    /**
-     * 统计最近一段时间内 对某已用户发起的添加好友申请次数
-     * @param fromUserID
-     * @param toUserID
-     * @param limitTime
-     * @return
-     */
-    int countUserApplied(int fromUserID, int toUserID, Date limitTime);
-
     User getUserByUserID(int userID);
 }

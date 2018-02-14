@@ -1,9 +1,7 @@
 package com.pers.yefei.LayIM.web.controller;
 
-import com.pers.yefei.LayIM.service.IndexService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,9 +17,6 @@ import java.io.IOException;
 public class DemonController {
 
     final static Logger LOGGER = LoggerFactory.getLogger(DemonController.class);
-
-    @Autowired
-    private IndexService indexService;
 
     @RequestMapping("/hello.html")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response) throws IOException, InterruptedException {

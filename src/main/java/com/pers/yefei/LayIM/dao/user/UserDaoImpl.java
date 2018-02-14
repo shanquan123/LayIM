@@ -65,35 +65,6 @@ public class UserDaoImpl implements IUserDao {
     }
 
     @Override
-    public int countUserGroupID(int userID, int groupID){
-        HashMap params = new HashMap<>();
-        params.put("userID", userID);
-        params.put("groupID", groupID);
-
-        return sqlSession.selectOne("com.pers.yefei.LayIM.dao.user.countUserByKeywords", params);
-    }
-
-    @Override
-    public int insertUserApplyFriend(UserFriendApplyModel userFriendApplyModel){
-        return sqlSession.insert("com.pers.yefei.LayIM.dao.user.insertUserApplyFriend", userFriendApplyModel);
-    }
-
-    @Override
-    public int updateUserApplyFriend(UserFriendApplyModel userFriendApplyModel){
-        return sqlSession.update("com.pers.yefei.LayIM.dao.user.insertUserApplyFriend", userFriendApplyModel);
-    }
-
-    @Override
-    public int countUserApplied(int fromUserID, int toUserID, Date limitTime){
-        HashMap params = new HashMap<>();
-        params.put("fromUserID", fromUserID);
-        params.put("toUserID", toUserID);
-        params.put("limitTime", limitTime);
-
-        return sqlSession.selectOne("com.pers.yefei.LayIM.dao.user.countUserApplied", params);
-    }
-
-    @Override
     public User getUserByUserID(int userID){
         return sqlSession.selectOne("com.pers.yefei.LayIM.dao.user.getUserByUserID", userID);
     }
