@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pers.yefei.LayIM.dao.userFriend">
+
+
+    <!-- 查询用户的所有分组 -->
+    <select id="queryUserGroup" parameterType="int" resultType="com.pers.yefei.LayIM.pojo.UserGroup">
+        SELECT * from tbl_user_group where userId = #{userID}
+    </select>
+
+
+    <!-- 根据groupID获取group信息 -->
+    <select id="getUserGroupByGroupID" parameterType="int" resultType="com.pers.yefei.LayIM.pojo.UserGroup">
+      SELECT * from tbl_user_group where groupID = #{groupID}
+    </select>
+
+
+    <!-- 更新分组 -->
+    <update id="updateUserGroup" parameterType="com.pers.yefei.LayIM.pojo.UserGroup">
+      update tbl_user_group set groupName = #{groupName}, isDeleted = #{isDeleted} where groupID = #{groupID}
+    </update>
+
+    <!-- 新建分组 -->
+    <insert id="insertUserGroup" parameterType="com.pers.yefei.LayIM.pojo.UserGroup">
+      insert into tbl_user_group (userID, groupName, isDeleted) values (${userID}, ${groupName}, ${isDeleted})
+    </insert>
+
+
+    <!-- 查询用户分组下的所有好友 -->
+    <select id="queryUserFriendByGroupID" resultType="com.pers.yefei.LayIM.pojo.User" parameterType="int">
+        SELECT * from tbl_user_friend_item where groupID = #{groupID}
+    </select>
+
+
+    <!-- 查询用户之间是否是好友 -->
+    <select id="checkUserFriend" parameterType="map" resultType="int">
+      select ifnull(count(1) ,0) tbl_user_friend_item where userID = #{userID}, and friendUserID = #{friendUserID}
+    </select>
+
+
+
+    <!-- 查询用户分组是否存在 添加好友时使用 -->
+    <select id="countUserGroup" parameterType="map" resultType="int">
+        select ifnull(count(1), 0) from tbl_user_group where userID = #{userID} and groupID = #{groupID}
+    </select>
+
+    <!-- 添加好友申请 -->
+    <insert id="insertUserApplyFriend" parameterType="com.pers.yefei.LayIM.pojo.UserFriendApplyModel">
+        insert into tbl_user_apply_friend (applyUserID, toUserID, userGroupID, status, createTime, modifiedTime) values
+        (${applyUserID}, ${toUserID}, ${userGroupID}, ${status}, ${createTime}, ${modifiedTime})
+    </insert>
+
+    <!-- 处理好友申请 -->
+    <update id="updateUserApplyFriend" parameterType="com.pers.yefei.LayIM.pojo.UserFriendApplyModel">
+        update tbl_user_apply_friend set status = #{status} and modifiedTime = #{modifiedTime} where  itemID = #{applyID} and applyUserID = #{applyUserID} and toUserID = #{toUserID}
+    </update>
+
+    <!-- 统计最近一段时间内 对某已用户发起的添加好友申请次数 -->
+    <select id="countUserApplied" parameterType="map">
+        select ifnull(count(1), 0) from tbl_user_apply_friend where applyUserID = #{applyUserID} and toUserID = #{toUserID} and createTime > #{limitTime}
+    </select>
+
+
+</mapper>
+
+
+
+
