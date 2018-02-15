@@ -117,7 +117,7 @@ public class LoginController {
 
             if (!result.get("code").equals("1")){
                 JSONObject msgData = new JSONObject();
-                msgData.put("msg", result.get("msg"));
+                msgData.put("userMsg", result.get("userMsg"));
                 ResponseUtil.writeResponseSuccess(response);
 
             }else {

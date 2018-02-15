@@ -28,13 +28,16 @@
 
     <!-- 查询用户分组下的所有好友 -->
     <select id="queryUserFriendByGroupID" resultType="com.pers.yefei.LayIM.pojo.User" parameterType="int">
-        SELECT * from tbl_user_friend_item where groupID = #{groupID}
+        SELECT u.* from tbl_user_friend_item uf, tbl_user u where groupID = #{groupID} and uf.userID = u.userID
     </select>
 
 
     <!-- 查询用户之间是否是好友 -->
     <select id="checkUserFriend" parameterType="map" resultType="int">
-      select ifnull(count(1) ,0) tbl_user_friend_item where userID = #{userID}, and friendUserID = #{friendUserID}
+
+        select ifnull(count(1) ,0) from tbl_user_friend_item uf, tbl_user_group ug, tbl_user u where
+        uf.userID = #{friendUserID} and uf.groupID = ug.groupID and ug.userID = u.userID and u.userID = #{userID}
+
     </select>
 
 

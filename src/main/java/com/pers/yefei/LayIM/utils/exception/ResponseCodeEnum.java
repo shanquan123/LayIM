@@ -14,6 +14,7 @@ public enum ResponseCodeEnum {
 
 	AuthFialed(230, "用户名或密码不正确！"),
 	UserNameUsed(240, "用户名已经被占用！"),
+	IsNotFriend(250, "非好友之间不可操作"),
 
 	
 	Network404(404, "找不到目标地址"),

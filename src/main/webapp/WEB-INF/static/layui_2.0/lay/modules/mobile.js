@@ -1340,7 +1340,7 @@ layui.define(["laytpl", "upload-mobile", "layer-mobile", "zepto"], function(i) {
                 group: "暂无群组",
                 history: "暂无任何消息"
             };
-            return i = i || {}, "history" === i.type && (i.item = i.item || "d.sortHistory"), ["{{# var length = 0; layui.each(" + i.item + ", function(i, data){ length++; }}", '<li layim-event="chat" data-type="' + i.type + '" data-index="' + (i.index ? "{{" + i.index + "}}" : ("history" === i.type ? "{{data.type}}" : i.type) + "{{data.id}}") + '" class="layim-' + ("history" === i.type ? "{{data.type}}" : i.type) + '{{data.id}} {{ data.status === "offline" ? "layim-list-gray" : "" }}"><div><img src="{{data.avatar}}"></div><span>{{ data.username||data.groupname||data.name||"佚名" }}</span><p>{{ data.remark||data.sign||"" }}</p><span class="layim-msg-status">new</span></li>', "{{# }); if(length === 0){ }}", '<li class="layim-null">' + (e[i.type] || "暂无数据") + "</li>", "{{# } }}"].join("")
+            return i = i || {}, "history" === i.type && (i.item = i.item || "d.sortHistory"), ["{{# var length = 0; layui.each(" + i.item + ", function(i, data){ length++; }}", '<li layim-event="chat" data-type="' + i.type + '" data-index="' + (i.index ? "{{" + i.index + "}}" : ("history" === i.type ? "{{data.type}}" : i.type) + "{{data.id}}") + '" class="layim-' + ("history" === i.type ? "{{data.type}}" : i.type) + '{{data.id}} {{ data.status === "offline" ? "layim-list-gray" : "" }}"><div><img src="{{data.avatar}}"></div><span>{{ data.username||data.groupname||data.name||"佚名" }}</span><p>{{ data.remark||data.sign||"" }}</p><span class="layim-userMsg-status">new</span></li>', "{{# }); if(length === 0){ }}", '<li class="layim-null">' + (e[i.type] || "暂无数据") + "</li>", "{{# } }}"].join("")
         }, f = function(i, e, a) {
             return ['<div class="layim-panel' + (e ? " layui-m-anim-left" : "") + '">', '<div class="layim-title" style="background-color: {{d.base.chatTitleColor}};">', "<p>", a ? '<i class="layui-icon layim-chat-back" layim-event="back">&#xe603;</i>' : "", '{{ d.title || d.base.title }}<span class="layim-chat-status"></span>', "{{# if(d.data){ }}", '{{# if(d.data.type === "group"){ }}', '<i class="layui-icon layim-chat-detail" layim-event="detail">&#xe613;</i>', "{{# } }}", "{{# } }}", "</p>", "</div>", '<div class="layui-unselect layim-content">', i, "</div>", "</div>"].join("")
         }, h = ['<div class="layui-layim">', '<div class="layim-tab-content layui-show">', '<ul class="layim-list-friend">', '<ul class="layui-layim-list layui-show layim-list-history">', p({
@@ -1493,7 +1493,7 @@ layui.define(["laytpl", "upload-mobile", "layer-mobile", "zepto"], function(i) {
                 var s = l.find(".layim-" + i.type + i.id),
                     c = (C.message[i.type + i.id] || []).length,
                     d = function() {
-                        s = l.find(".layim-" + i.type + i.id), s.find("p").html(i.content), c > 0 && s.find(".layim-msg-status").html(c).addClass(o)
+                        s = l.find(".layim-" + i.type + i.id), s.find("p").html(i.content), c > 0 && s.find(".layim-userMsg-status").html(c).addClass(o)
                     };
                 if (s.length > 0) d(), l.prepend(s.clone()), s.remove();
                 else {
@@ -1664,7 +1664,7 @@ layui.define(["laytpl", "upload-mobile", "layer-mobile", "zepto"], function(i) {
                     n = i.data("index"),
                     l = i.attr("data-list") || i.index(),
                     s = {};
-                "friend" === t ? s = C[t][n].list[l] : "group" === t ? s = C[t][l] : "history" === t && (s = (e.history || {})[n] || {}), s.name = s.name || s.username || s.groupname, "history" !== t && (s.type = t), L(s, !0), a(".layim-" + s.type + s.id).find(".layim-msg-status").removeClass(o)
+                "friend" === t ? s = C[t][n].list[l] : "group" === t ? s = C[t][l] : "history" === t && (s = (e.history || {})[n] || {}), s.name = s.name || s.username || s.groupname, "history" !== t && (s.type = t), L(s, !0), a(".layim-" + s.type + s.id).find(".layim-userMsg-status").removeClass(o)
             },
             spread: function(i) {
                 var e = i.attr("lay-type"),

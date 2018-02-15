@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface IUserFriendService {
     List<UserGroup> queryUserGroupAndFriends(int userID);
+
+    boolean checkUserFriend(int userId, int friendUserID);
 }

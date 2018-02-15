@@ -1,4 +1,4 @@
-package com.pers.yefei.LayIM.dao.msg;
+package com.pers.yefei.LayIM.dao.userMsg;
 
 import com.pers.yefei.LayIM.pojo.UserMsg;
 
@@ -41,4 +41,12 @@ public interface IUserMsgDao {
      * @return
      */
     int setMsgRead(UserMsg userMsg);
+
+    /**
+     * 根据msgIDs更新消息状态为已读 已读回复时使用
+     * @param userID
+     * @param userMsgIDList
+     * @return
+     */
+    int setMsgRead(int userID, String[] userMsgIDList);
 }

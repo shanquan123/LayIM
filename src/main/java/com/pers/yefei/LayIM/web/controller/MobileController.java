@@ -1,9 +1,11 @@
 package com.pers.yefei.LayIM.web.controller;
 
 import com.pers.yefei.LayIM.component.SessionManager;
+import com.pers.yefei.LayIM.component.UserGroupSerializer;
 import com.pers.yefei.LayIM.pojo.User;
 import com.pers.yefei.LayIM.pojo.UserGroup;
 import com.pers.yefei.LayIM.service.userFriend.IUserFriendService;
+import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +38,10 @@ public class MobileController {
 
         User user = sessionManager.getUserFromSession(request);
         List<UserGroup> userGroupList = userFriendService.queryUserGroupAndFriends(user.getUserID());
+        JSONArray userGroupJSONArray = UserGroupSerializer.userGroupList2JSONArray(userGroupList);
 
-        mv.addObject("userInfo", user);
-        mv.addObject("userGroupList", userGroupList);
+        mv.addObject("user", user);
+        mv.addObject("userFriends", userGroupJSONArray.toString());
         return mv;
     }
 

@@ -50,7 +50,7 @@ public interface IUserFriendDao {
      * @param friendUserID
      * @return
      */
-    int checkUserFriend(int userId, int friendUserID);
+    int checkUserFriend(int userID, int friendUserID);
 
 
     /**

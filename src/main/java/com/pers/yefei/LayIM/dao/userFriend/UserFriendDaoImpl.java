@@ -48,9 +48,9 @@ public class UserFriendDaoImpl implements IUserFriendDao {
     }
 
     @Override
-    public int checkUserFriend(int userId, int friendUserID){
+    public int checkUserFriend(int userID, int friendUserID){
         HashMap params = new HashMap<>();
-        params.put("userId", userId);
+        params.put("userID", userID);
         params.put("friendUserID", friendUserID);
 
         return sqlSession.selectOne("com.pers.yefei.LayIM.dao.userFriend.checkUserFriend", params);

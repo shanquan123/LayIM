@@ -30,4 +30,13 @@ public class UserFriendServiceImpl implements IUserFriendService {
     }
 
 
+    @Override
+    public boolean checkUserFriend(int userId, int friendUserID){
+        if(userFriendDao.checkUserFriend(userId, friendUserID) > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }

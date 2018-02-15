@@ -85,7 +85,7 @@ public class LoginServiceImpl implements ILoginService{
             int num = loginDao.setLoginInvalidByUserID(user.getUserID());
             if ( num > 0 ){
                 result.put("code", 2);
-                result.put("msg", String.format("踢出之前登陆的用户%d个", num));
+                result.put("userMsg", String.format("踢出之前登陆的用户%d个", num));
             }
 
         }
@@ -136,6 +136,12 @@ public class LoginServiceImpl implements ILoginService{
 
         if(user == null || user.isDeleted()){
             return null;
+        }
+
+        String avatar = user.getAvatar();
+        if(avatar != null && !avatar.trim().equals("") && !avatar.startsWith("http")){
+            String host = layimSupport.getResourceHost();
+            user.setAvatar(host + avatar);
         }
 
         return user;
