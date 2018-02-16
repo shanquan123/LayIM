@@ -20,7 +20,7 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("/rest/mobile")
+@RequestMapping("/rest/msg")
 public class UserMsgController {
 
     final static Logger LOGGER = LoggerFactory.getLogger(UserMsgController.class);
@@ -32,7 +32,7 @@ public class UserMsgController {
     SessionManager sessionManager;
 
 
-    @RequestMapping("/msg/unread.ajax")
+    @RequestMapping("/unread.ajax")
     public void ajaxGetUnreadMsg(HttpServletRequest request, HttpServletResponse response) throws IOException, InterruptedException {
 
         try{
@@ -52,7 +52,7 @@ public class UserMsgController {
         }
     }
 
-    @RequestMapping("/msg/read.ajax")
+    @RequestMapping("/read.ajax")
     public void ajaxReadMsg(HttpServletRequest request, HttpServletResponse response, String userMsgIDs) throws IOException, InterruptedException {
 
         try{
@@ -70,7 +70,7 @@ public class UserMsgController {
         }
     }
 
-    @RequestMapping("/msg/send.ajax")
+    @RequestMapping("/send.ajax")
     public void ajaxSendMsg(HttpServletRequest request, HttpServletResponse response, int toUserID, String msgContent) throws IOException, InterruptedException {
 
         try{

@@ -28,7 +28,7 @@
 			<input type="text" name="username"  class="form-item" placeholder="用户名">
 			<input type="password" name="password" class="form-item" placeholder="密码">
 			<button type="submit" id="submit">登录</button>
-			<p>还没有账号？<a href="/rest/mobile/register.html"><b>点击注册</b></a></p>
+			<p>还没有账号？<a href="/rest/login/register.html"><b>点击注册</b></a></p>
 		</div>
 	</form>
 
@@ -56,7 +56,7 @@
                     userName: $('[name=username]').val(),
                     password: $.md5($('[name=password]').val())
                 }
-                var url = '/rest/mobile/login.ajax'
+                var url = '/rest/login/login.ajax'
                 post(url, postData, function(response){
                     if(response.code == 1){
                         location.href = '/rest/mobile/mobile.html'

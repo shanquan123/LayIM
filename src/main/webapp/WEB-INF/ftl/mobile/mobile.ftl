@@ -76,7 +76,7 @@ $(function () {
 
         //获取未读消息
         function getUnreadMsg() {
-            var url = "/rest/mobile/msg/unread.ajax"
+            var url = "/rest/msg/unread.ajax"
             post(url, {}, function (response) {
                 if(response.code == 1){
                     var msgList = response.msg_data.userMsgList
@@ -103,12 +103,12 @@ $(function () {
 
         //设置为已读
         function readUserMsg(userMsgIDs) {
-            var url = "/rest/mobile/msg/read.ajax"
+            var url = "/rest/msg/read.ajax"
             post(url, {userMsgIDs:userMsgIDs})
         }
 
         function sendMsg(toUserID, msgContent){
-            var url = "/rest/mobile/msg/send.ajax"
+            var url = "/rest/msg/send.ajax"
             post(url, {
                 toUserID: toUserID,
                 msgContent: msgContent

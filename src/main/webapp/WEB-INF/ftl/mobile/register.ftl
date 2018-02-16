@@ -28,7 +28,7 @@
 			<input type="password" name="password" class="form-item" placeholder="密码">
 			<input type="password" name="rePassword" class="form-item" placeholder="确认密码">
 			<button type="submit" id="submit">登录</button>
-			<p>已有账号，<a href="/rest/mobile/login.html"><b>点击登录</b></a></p>
+			<p>已有账号，<a href="/rest/login/login.html"><b>点击登录</b></a></p>
 		</div>
 	</form>
 </body>
@@ -74,7 +74,7 @@
                 nickName: $('[name=nickname]').val(),
                 password: $.md5($('[name=password]').val())
 			}
-			var url = '/rest/mobile/register.ajax'
+			var url = '/rest/login/register.ajax'
 			post(url, postData, function(response){
 			    if(response.code == 1){
 					alert('注册成功！')
@@ -90,7 +90,7 @@
 	$('[name=username]').blur(function(){
 	    var userName = $(this).val();
 	    if(userName){
-	        post('/rest/mobile/check_username.ajax',{userName:userName})
+	        post('/rest/login/check_username.ajax',{userName:userName})
 		}
 	})
 

@@ -25,7 +25,7 @@ import java.util.HashMap;
 
 
 @Controller
-@RequestMapping("/rest/mobile")
+@RequestMapping("/rest/login")
 public class LoginController {
 
     final static Logger LOGGER = LoggerFactory.getLogger(LoginController.class);

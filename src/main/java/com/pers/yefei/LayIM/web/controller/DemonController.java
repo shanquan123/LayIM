@@ -13,7 +13,7 @@ import java.io.IOException;
 
 
 @Controller
-@RequestMapping("/rest/mobile")
+@RequestMapping("/rest/demo")
 public class DemonController {
 
     final static Logger LOGGER = LoggerFactory.getLogger(DemonController.class);
