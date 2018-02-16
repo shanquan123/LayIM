@@ -11,7 +11,7 @@
 	<bean class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close" id="dataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/layim?useUnicode=true&amp;characterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull&amp;generateSimpleParameterMetadata=true" />
-		<property name="username" value="yefei" />
+		<property name="username" value="root" />
 		<property name="password" value="Pass@123" />
 		<property name="initialSize" value="10" />
 		<property name="maxTotal" value="50" />
