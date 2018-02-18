@@ -17,7 +17,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AuthInterceptor.class);
 	
-	private static final String LOGIN_URL = "/rest/mobile/login.html";
+	private static final String LOGIN_URL = "/rest/login/login.html";
 
 	@Autowired
 	private SessionManager sessionManager;
@@ -32,7 +32,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 
 			User user = sessionManager.getUserFromSession(request);
 			if (user == null){
-				response.sendRedirect(contextPath + "/rest/mobile/login.html");
+				response.sendRedirect(contextPath + LOGIN_URL);
 				return false;
 			}
 

@@ -11,11 +11,11 @@
 	<link rel="stylesheet" type="text/css" href="/static/css/login.css" />
     <link rel="stylesheet" href="/layui/css/layui.mobile.css">
     <link id="layuicss-skinlayim-mobilecss" rel="stylesheet" href="/layui/css/modules/layim/mobile/layim.css?v=2.0" media="all">
-    <script src="/layui/layui.js" />
-    <script src="/static/js/jquery-1.8.3.min.js" />
-    <script src="/layui/layer.js" />
-    <script src="/static/js/md5.js" />
-    <script src="/static/js/common.js" />
+    <script src="/layui/layui.js"></script>
+    <script src="/static/js/jquery-1.8.3.min.js"></script>
+    <script src="/layui/layer.js"></script>
+    <script src="/static/js/md5.js"></script>
+    <script src="/static/js/common.js"></script>
 
 </head>
 <body>
