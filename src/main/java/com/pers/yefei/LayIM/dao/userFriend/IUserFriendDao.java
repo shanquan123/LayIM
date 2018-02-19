@@ -86,4 +86,7 @@ public interface IUserFriendDao {
      */
     int countUserApplied(int fromUserID, int toUserID, Date limitTime);
 
+    UserFriendApplyModel getFriendApplyByItemID(int itemID);
+
+    int insertUserFriendItem(int groupID, int userID);
 }

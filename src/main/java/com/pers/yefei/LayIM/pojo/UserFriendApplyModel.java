@@ -16,4 +16,60 @@ public class UserFriendApplyModel {
     private Date createTime;
 
     private Date modifiedTime;
+
+    public int getItemID() {
+        return itemID;
+    }
+
+    public void setItemID(int itemID) {
+        this.itemID = itemID;
+    }
+
+    public int getApplyUserID() {
+        return applyUserID;
+    }
+
+    public void setApplyUserID(int applyUserID) {
+        this.applyUserID = applyUserID;
+    }
+
+    public int getToUserID() {
+        return toUserID;
+    }
+
+    public void setToUserID(int toUserID) {
+        this.toUserID = toUserID;
+    }
+
+    public int getUserGroupID() {
+        return userGroupID;
+    }
+
+    public void setUserGroupID(int userGroupID) {
+        this.userGroupID = userGroupID;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getModifiedTime() {
+        return modifiedTime;
+    }
+
+    public void setModifiedTime(Date modifiedTime) {
+        this.modifiedTime = modifiedTime;
+    }
 }

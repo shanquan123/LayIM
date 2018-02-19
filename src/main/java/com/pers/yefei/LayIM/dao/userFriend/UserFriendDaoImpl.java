@@ -73,6 +73,7 @@ public class UserFriendDaoImpl implements IUserFriendDao {
 
     @Override
     public int updateUserApplyFriend(UserFriendApplyModel userFriendApplyModel){
+        userFriendApplyModel.setModifiedTime(new Date());
         return sqlSession.update("com.pers.yefei.LayIM.dao.userFriend.updateUserApplyFriend", userFriendApplyModel);
     }
 
@@ -86,4 +87,17 @@ public class UserFriendDaoImpl implements IUserFriendDao {
         return sqlSession.selectOne("com.pers.yefei.LayIM.dao.userFriend.countUserApplied", params);
     }
 
+    @Override
+    public UserFriendApplyModel getFriendApplyByItemID(int itemID){
+        return sqlSession.selectOne("com.pers.yefei.LayIM.dao.userFriend.getFriendApplyByItemID", itemID);
+    }
+
+    @Override
+    public int insertUserFriendItem(int groupID, int userID){
+        HashMap params = new HashMap();
+        params.put("groupID", groupID);
+        params.put("userID", userID);
+
+        return sqlSession.insert("com.pers.yefei.LayIM.dao.userFriend.insertUserFriendItem", params);
+    }
 }

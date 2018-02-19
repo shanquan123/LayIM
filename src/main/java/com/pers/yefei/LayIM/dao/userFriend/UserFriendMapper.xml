@@ -42,6 +42,8 @@
 
 
 
+    <!--             -->
+
     <!-- 查询用户分组是否存在 添加好友时使用 -->
     <select id="countUserGroup" parameterType="map" resultType="int">
         select ifnull(count(1), 0) from tbl_user_group where userID = #{userID} and groupID = #{groupID}
@@ -63,6 +65,15 @@
         select ifnull(count(1), 0) from tbl_user_apply_friend where applyUserID = #{applyUserID} and toUserID = #{toUserID} and createTime > #{limitTime}
     </select>
 
+    <select id="getFriendApplyByItemID" parameterType="int" resultType="com.pers.yefei.LayIM.pojo.UserFriendApplyModel">
+      select * from tbl_user_apply_friend where itemID = #{itemID}
+    </select>
+
+
+
+    <insert id="insertUserFriendItem" parameterType="map">
+      insert into tbl_user_friend_item (groupID, userID) value (#{groupID}, #{userID})
+    </insert>
 
 </mapper>
 
