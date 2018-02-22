@@ -37,12 +37,12 @@
 
     <!-- 查找用户  添加好友时使用 -->
     <select id="queryUserByKeywords" resultType="com.pers.yefei.LayIM.pojo.User" parameterType="map">
-      select * from tbl_user where userID = #{keywords} or userName like concat('%', #{keywords} , '%') or nickName like concat('%', #{keywords}, '%') limit #{offset}, #{pageSize}
+      select userID, nickName, signature, avatar from tbl_user where userID = #{keywords} or nickName like concat('%', #{keywords}, '%') limit #{offset}, #{pageSize}
     </select>
 
     <!-- 统计用户  添加好友时使用 -->
     <select id="countUserByKeywords" resultType="int" parameterType="map">
-        select ifnull(count(1), 0) from tbl_user where userID = #{keywords} or userName like concat('%', #{keywords} , '%') or nickName like concat('%', #{keywords}, '%')
+        select ifnull(count(1), 0) from tbl_user where userID = #{keywords} or nickName like concat('%', #{keywords}, '%')
     </select>
 
     <!-- 根据userID 查询 user -->

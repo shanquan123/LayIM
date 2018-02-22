@@ -51,8 +51,8 @@
 
     <!-- 添加好友申请 -->
     <insert id="insertUserApplyFriend" parameterType="com.pers.yefei.LayIM.pojo.UserFriendApplyModel">
-        insert into tbl_user_apply_friend (applyUserID, toUserID, userGroupID, status, createTime, modifiedTime) values
-        (${applyUserID}, ${toUserID}, ${userGroupID}, ${status}, ${createTime}, ${modifiedTime})
+        insert into tbl_user_apply_friend (applyUserID, toUserID, userGroupID, status, createTime, modifiedTime, remark) values
+        (#{applyUserID}, #{toUserID}, #{userGroupID}, #{status}, #{createTime}, #{modifiedTime}, #{remark})
     </insert>
 
     <!-- 处理好友申请 -->
@@ -61,7 +61,7 @@
     </update>
 
     <!-- 统计最近一段时间内 对某已用户发起的添加好友申请次数 -->
-    <select id="countUserApplied" parameterType="map">
+    <select id="countUserApplied" parameterType="map" resultType="int">
         select ifnull(count(1), 0) from tbl_user_apply_friend where applyUserID = #{applyUserID} and toUserID = #{toUserID} and createTime > #{limitTime}
     </select>
 

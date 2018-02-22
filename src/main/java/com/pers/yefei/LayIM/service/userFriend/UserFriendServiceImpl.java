@@ -5,7 +5,6 @@ import com.pers.yefei.LayIM.enumenate.UserFriendStatusEnum;
 import com.pers.yefei.LayIM.pojo.User;
 import com.pers.yefei.LayIM.pojo.UserFriendApplyModel;
 import com.pers.yefei.LayIM.pojo.UserGroup;
-import com.pers.yefei.LayIM.pojo.UserMsg;
 import com.pers.yefei.LayIM.service.user.IUserService;
 import com.pers.yefei.LayIM.utils.DateUtil;
 import com.pers.yefei.LayIM.utils.exception.OutOfUserApplyCountException;
@@ -15,9 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Parameter;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 
@@ -54,7 +50,7 @@ public class UserFriendServiceImpl implements IUserFriendService {
 
 
     @Override
-    public void applyFriend(int userID, int toUserID, int userGroupID){
+    public void applyFriend(int userID, int toUserID, int userGroupID, String remark){
 
         int countUserApplied = userFriendDao.countUserApplied(userID, toUserID, DateUtil.getDateAfterDays(-30));
         if(countUserApplied > 1){
@@ -70,7 +66,7 @@ public class UserFriendServiceImpl implements IUserFriendService {
         userFriendApplyModel.setToUserID(toUserID);
         userFriendApplyModel.setUserGroupID(userGroupID);
         userFriendApplyModel.setStatus(UserFriendStatusEnum.APPLIED.getStatus());
-        userFriendApplyModel.setCreateTime(new Date());
+        userFriendApplyModel.setRemark(remark);
 
         userFriendDao.insertUserApplyFriend(userFriendApplyModel);
 

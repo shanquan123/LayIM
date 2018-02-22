@@ -68,6 +68,8 @@ public class UserFriendDaoImpl implements IUserFriendDao {
 
     @Override
     public int insertUserApplyFriend(UserFriendApplyModel userFriendApplyModel){
+        userFriendApplyModel.setCreateTime(new Date());
+        userFriendApplyModel.setModifiedTime(new Date());
         return sqlSession.insert("com.pers.yefei.LayIM.dao.userFriend.insertUserApplyFriend", userFriendApplyModel);
     }
 

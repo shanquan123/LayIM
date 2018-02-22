@@ -8,18 +8,25 @@
     <#--<link rel="stylesheet" href="//res.layui.com/layui/dist/css/layui.mobile.css">-->
 
     <link rel="stylesheet" href="/layui/css/layui.mobile.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/base.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/login.css" />
     <#--
     <link id="layuicss-skinlayim-mobilecss" rel="stylesheet" href="//res.layui.com/layui/dist/css/modules/layim/mobile/layim.css?v=2.0" media="all">-->
     <#---->
     <link id="layuicss-skinlayim-mobilecss" rel="stylesheet" href="/layui/css/modules/layim/mobile/layim.css?v=2.0" media="all">
     <script src="/layui/layui.js"></script>
     <script src="/static/js/jquery-1.8.3.min.js"></script>
-    <script > var layer</script>
+    <script >
+        var layer
+        var userGroupList = ${userFriends}
+
+
+    </script>
     <script src="/static/js/common.js"></script>
 </head>
 <body>
 
-
+<#include "findUser.ftl">
 <#--<script src="//res.layui.com/layui/dist/layui.js"></script>-->
 
 
@@ -39,7 +46,7 @@ $(function () {
         layer = mobile.layer;
 
 
-        var userGroupList = ${userFriends}
+
 
         //根据id查询好友信息
         function findFriend(userID){
@@ -107,6 +114,7 @@ $(function () {
             post(url, {userMsgIDs:userMsgIDs})
         }
 
+        //发送消息
         function sendMsg(toUserID, msgContent){
             var url = "/rest/msg/send.ajax"
             post(url, {
@@ -117,20 +125,23 @@ $(function () {
             })
         }
 
+
         //演示自动回复
-        var autoReplay = [
-            '您好，我现在有事不在，一会再和您联系。',
-            '你没发错吧？face[微笑] ',
-            '洗澡中，请勿打扰，偷窥请购票，个体四十，团体八折，订票电话：一般人我不告诉他！face[哈哈] ',
-            '你好，我是主人的美女秘书，有什么事就跟我说吧，等他回来我会转告他的。face[心] face[心] face[心] ',
-            'face[威武] face[威武] face[威武] face[威武] ',
-            '<（@￣︶￣@）>',
-            '你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。',
-            'face[黑线]  你慢慢说，别急……',
-            '(*^__^*) face[嘻嘻] ，是贤心吗？'
-        ];
+        // var autoReplay = [
+        //     '您好，我现在有事不在，一会再和您联系。',
+        //     '你没发错吧？face[微笑] ',
+        //     '洗澡中，请勿打扰，偷窥请购票，个体四十，团体八折，订票电话：一般人我不告诉他！face[哈哈] ',
+        //     '你好，我是主人的美女秘书，有什么事就跟我说吧，等他回来我会转告他的。face[心] face[心] face[心] ',
+        //     'face[威武] face[威武] face[威武] face[威武] ',
+        //     '<（@￣︶￣@）>',
+        //     '你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。',
+        //     'face[黑线]  你慢慢说，别急……',
+        //     '(*^__^*) face[嘻嘻] ，是贤心吗？'
+        // ];
 
         layim.config({
+            voice:'msg.mp3',
+
             //上传图片接口
             uploadImage: {
                 url: '/upload/image' //（返回的数据格式见下文）
@@ -197,7 +208,8 @@ $(function () {
         layim.on('newFriend', function(){
             layim.panel({
                 title: '新的朋友' //标题
-                ,tpl: '<div style="padding: 10px;">自定义模版，{{d.data.test}}</div>' //模版
+                <#--,tpl: '<div style="padding: 10px;"><#include "findUser.ftl"></div>' //模版-->
+                ,tpl: '<div class="find-user-container" style="padding: 10px;">'+ $('.find-user-container-template').html() +'</div>' //模版
                 ,data: { //数据
                     test: '么么哒'
                 }
@@ -229,7 +241,7 @@ $(function () {
                 case 'share':
                     layim.panel({
                         title: '邀请好友' //标题
-                        ,tpl: '<div style="padding: 10px;">自定义模版，{{d.data.test}}</div>' //模版
+                        ,tpl: '<div style="padding: 10px;">自定义模版，{{d.data.test}}></div>' //模版
                         ,data: { //数据
                             test: '么么哒'
                         }
@@ -298,10 +310,13 @@ $(function () {
 
 
         //模拟"更多"有新动态
-        layim.showNew('More', true);
-        layim.showNew('find', true);
+        // layim.showNew('More', true);
+        // layim.showNew('find', true);
 
-        setInterval(getUnreadMsg, 2000)
+
+        //获取未读消息
+        // setInterval(getUnreadMsg, 2000)
+
 
     });
 

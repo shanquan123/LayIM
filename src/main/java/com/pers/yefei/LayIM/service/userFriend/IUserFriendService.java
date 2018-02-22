@@ -10,7 +10,7 @@ public interface IUserFriendService {
 
     boolean checkUserFriend(int userId, int friendUserID);
 
-    void applyFriend(int userID, int toUserID, int userGroupID);
+    void applyFriend(int userID, int toUserID, int userGroupID, String remark);
 
     @Transactional
     void agreeFriend(int applyItemID, int toUserID, int toGroupID);

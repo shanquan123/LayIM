@@ -2,11 +2,11 @@ package com.pers.yefei.LayIM.web.controller;
 
 import com.pers.yefei.LayIM.component.SessionManager;
 import com.pers.yefei.LayIM.pojo.User;
-import com.pers.yefei.LayIM.pojo.UserMsg;
 import com.pers.yefei.LayIM.service.user.IUserService;
 import com.pers.yefei.LayIM.service.userFriend.IUserFriendService;
 import com.pers.yefei.LayIM.service.userMsg.IUserMsgService;
 import com.pers.yefei.LayIM.utils.ResponseUtil;
+import com.pers.yefei.LayIM.utils.exception.ParameterException;
 import com.pers.yefei.LayIM.utils.exception.ServerBaseException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -44,8 +44,9 @@ public class UserFriendController {
     public void ajaxFindUser(HttpServletRequest request, HttpServletResponse response, String keywords) throws IOException, InterruptedException {
 
         try{
-            User user = sessionManager.getUserFromSession(request);
-            List<UserMsg> msgList = userMsgService.queryUnreadMsg(user.getUserID());
+            if(keywords.equals('%')){
+                throw new ParameterException();
+            }
 
             int pageNo = 1;
             int pageSize = 100;
@@ -66,11 +67,11 @@ public class UserFriendController {
     }
 
     @RequestMapping("/apply.ajax")
-    public void ajaxApply(HttpServletRequest request, HttpServletResponse response, int groupID, int toUserID) throws IOException, InterruptedException {
+    public void ajaxApply(HttpServletRequest request, HttpServletResponse response, int groupID, int toUserID, String remark) throws IOException, InterruptedException {
 
         try{
             User user = sessionManager.getUserFromSession(request);
-            userFriendService.applyFriend(user.getUserID(), toUserID, groupID);
+            userFriendService.applyFriend(user.getUserID(), toUserID, groupID, remark);
 
             ResponseUtil.writeResponseSuccess(response);
 

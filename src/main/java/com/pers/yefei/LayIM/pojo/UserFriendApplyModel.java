@@ -17,6 +17,8 @@ public class UserFriendApplyModel {
 
     private Date modifiedTime;
 
+    private String remark;
+
     public int getItemID() {
         return itemID;
     }
@@ -71,5 +73,13 @@ public class UserFriendApplyModel {
 
     public void setModifiedTime(Date modifiedTime) {
         this.modifiedTime = modifiedTime;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }

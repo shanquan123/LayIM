@@ -8,12 +8,15 @@ function alert(msg){
     });
 }
 
-function confirm(smg, yesCallback){
+function confirm(msg, yesCallback){
     layer.open({
         anim: 'up'
         ,content: msg
         ,btn: ['确认', '取消']
-        ,yes: yesCallback
+        ,yes: function(index){
+            layer.close(index)
+            yesCallback(index)
+        }
     });
 }
 
