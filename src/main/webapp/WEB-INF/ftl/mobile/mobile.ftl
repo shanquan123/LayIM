@@ -14,6 +14,7 @@
     <link id="layuicss-skinlayim-mobilecss" rel="stylesheet" href="//res.layui.com/layui/dist/css/modules/layim/mobile/layim.css?v=2.0" media="all">-->
     <#---->
     <link id="layuicss-skinlayim-mobilecss" rel="stylesheet" href="/layui/css/modules/layim/mobile/layim.css?v=2.0" media="all">
+    <link id="layuicss-skinlayim-mobilecss" rel="stylesheet" href="/layui/css/layui.css" media="all">
     <script src="/layui/layui.js"></script>
     <script src="/static/js/jquery-1.8.3.min.js"></script>
     <script >

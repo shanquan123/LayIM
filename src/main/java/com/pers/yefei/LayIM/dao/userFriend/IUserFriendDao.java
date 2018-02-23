@@ -79,12 +79,12 @@ public interface IUserFriendDao {
 
     /**
      * 统计最近一段时间内 对某已用户发起的添加好友申请次数
-     * @param fromUserID
+     * @param applyUserID
      * @param toUserID
      * @param limitTime
      * @return
      */
-    int countUserApplied(int fromUserID, int toUserID, Date limitTime);
+    int countUserApplied(int applyUserID, int toUserID, Date limitTime);
 
     UserFriendApplyModel getFriendApplyByItemID(int itemID);
 

@@ -80,9 +80,9 @@ public class UserFriendDaoImpl implements IUserFriendDao {
     }
 
     @Override
-    public int countUserApplied(int fromUserID, int toUserID, Date limitTime){
+    public int countUserApplied(int applyUserID, int toUserID, Date limitTime){
         HashMap params = new HashMap<>();
-        params.put("fromUserID", fromUserID);
+        params.put("applyUserID", applyUserID);
         params.put("toUserID", toUserID);
         params.put("limitTime", limitTime);
 

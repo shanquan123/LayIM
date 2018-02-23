@@ -1,4 +1,6 @@
-
+if (typeof layer){
+    var layer
+}
 
 function alert(msg){
     layer.open({
@@ -14,8 +16,10 @@ function confirm(msg, yesCallback){
         ,content: msg
         ,btn: ['确认', '取消']
         ,yes: function(index){
-            layer.close(index)
             yesCallback(index)
+            setTimeout(function(){
+                layer.close(index)
+            }, 100)
         }
     });
 }

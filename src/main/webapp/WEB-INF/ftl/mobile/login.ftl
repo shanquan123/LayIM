@@ -15,7 +15,12 @@
 
     <script src="/layui/layui.js" ></script>
     <script src="/static/js/jquery-1.8.3.min.js" ></script>
-    <script src="/layui/layer.js" ></script>
+    <#--<script src="/layui/layer.js" ></script>-->
+    <script>
+        layui.use(['layer'], function(){
+            layer = layui.layer
+        })
+    </script>
     <script src="/static/js/md5.js" ></script>
     <script src="/static/js/common.js" ></script>
 

@@ -1,7 +1,7 @@
 <div class="find-user-container-template" style="display: none;">
     <form class="layui-form find-user" action="">
         <div class="layui-form-item">
-            <div class="layui-input-block">
+            <div class="">
                 <input type="text" name="keywords" required  lay-verify="required" placeholder="请输入用户昵称或者ID" autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -9,9 +9,9 @@
 
 
     <div class="layim-tab-content layui-show" >
-        <ul class="layim-list-friend layui-layim-list layim-list-history">
+        <ul class="layim-list-friend layui-layim-list list-friend-future">
             <#--<ul class="layui-layim-list layim-list-history">-->
-                <li layim-event="chat" data-type="history" data-index="friend1" class="layim-friend1 friend-item" u-id="1" style="display: none">
+                <li class="friend-item" u-id="1" style="display: none">
                     <div>
                         <img class="avatar" src="https://avatars2.githubusercontent.com/u/14289678?s=460&amp;v=4">
                     </div>
@@ -35,41 +35,47 @@
                 $select.append('<option value="'+ item.id +'">'+ item.groupname +'</option>')
             })
         }
+        //
+        // $label = $('<label class="layui-form-label">选择分组</label>')
+        // $item = $('<div class="layui-input-block"></div>').append($select)
 
-        $label = $('<label class="layui-form-label">选择分组</label>')
-        $item = $('<div class="layui-input-block"></div>').append($select)
+        $label = $('<div class="layui-col-xs3 layui-col-sm3">选择分组</div>')
+        $item = $('<div class="layui-col-xs9 layui-col-sm9"></div>').append($select)
 
-        return $('<div class="layui-form-item"></div>').append($label).append($item)
+        return $('<div class="layui-row"></div>').append($label).append($item)
     }
 
     function buildRemark(){
         $remark = $('<input type="text" name="remark" required  lay-verify="required" placeholder="请输入备注" autocomplete="off" class="layui-input apply">');
-        $label = $('<label class="layui-form-label">备注</label>');
-        $item = $('<div class="layui-input-block"></div>').append($remark);
 
-        return $('<div class="layui-form-item"></div>').append($label).append($item);
+        // $label = $('<label class="layui-form-label">备  注</label>');
+        // $item = $('<div class="layui-input-block"></div>').append($remark);
+
+        $label = $('<div class="layui-col-xs3 layui-col-sm3">备  注</div>')
+        $item = $('<div class="layui-col-xs8 layui-col-sm8 layui-col-xs-offset1 layui-col-sm-offset1"></div>').append($remark)
+        return $('<div class="layui-row"></div>').append($label).append($item);
 
     }
 
     function buildApplyForm(){
-        $form = $('<form class="layui-form layui-form-pane" action="">')
+        $form = $('<div class="layui-container">')
         $form.append(buildGroupSelect())
         $form.append(buildRemark())
 
         return $form.get(0).outerHTML
     }
 
+
     //申请添加好友
     function applyFriend(item){
-        var userID = $(item).data('u-id')
-
+        var userID = $(item).attr('u-id')
 
         confirm(buildApplyForm(), function(){
             var url = '/rest/user/apply.ajax'
             post(url, {
                 toUserID:userID,
                 groupID: $('.apply[name=groupID]').val(),
-                remark: $('.apply[name=remark]').valueOf()
+                remark: $('.apply[name=remark]').val()
 
             },function(response){
 
@@ -88,8 +94,8 @@
         $item = $('.find-user-container ul.layim-list-friend li:first').clone().show()
         $item.find('.avatar').attr('src', avatar)
         $item.find('.nick-name').text(nickName)
-        $item.find('.friend-item').data('u-id', userID).attr('u-id', userID)
-        $item.find('.apply-btn').data('u-id', userID)
+        $item.find('.friend-item').attr('u-id', userID)
+        $item.find('.apply-btn').attr('u-id', userID)
         if(!!signature){
             $item.find('.sign').text(signature)
         }
@@ -124,9 +130,11 @@
     })
 
 
-    $(document).on('touchstart', '.apply-btn', function(event){
+    //添加好友
+    $(document).on('touchend', '.list-friend-future .friend-item', function(event){
         event.preventDefault();
         event.stopPropagation();
         applyFriend(this);
     })
+
 </script>
