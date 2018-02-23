@@ -91,7 +91,7 @@ $(function () {
                     if (msgList instanceof Array){
 
                         var userMsgIDArr = []
-                        for (var i = msgList.length - 1; i >= 0; i--){
+                        for (var i = 0, len = msgList.length; i < len; i++){
                             var msg = msgList[i]
                             var userID = msg.fromUserID
                             var friend = findFriend(userID);

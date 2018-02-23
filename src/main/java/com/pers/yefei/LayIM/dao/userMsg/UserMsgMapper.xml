@@ -15,7 +15,7 @@
 
     <!-- 查询未读消息 -->
     <select id="queryUnreadMsg" parameterType="int" resultType="com.pers.yefei.LayIM.pojo.UserMsg">
-      select * from tbl_user_msg where toUserID = #{userID} and isRead = 0 order by createTime desc
+      select * from tbl_user_msg where toUserID = #{userID} and isRead = 0 order by msgID asc
     </select>
 
     <!-- 更新所有未读消息状态为已读 登录时查询所有未读消息后使用 -->
