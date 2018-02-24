@@ -168,8 +168,8 @@
 
         //获取好友申请
         onLayimReady(function(){
-            // setInterval(getApplyList, 3000)
-            getApplyList()
+            setInterval(getApplyList, 3000)
+            // getApplyList()
         });
 
 
