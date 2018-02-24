@@ -1,4 +1,4 @@
-<div class="find-user-container-template" style="display: none;">
+<div class="find-user-container-template" style="display: none; padding: 10px;">
     <form class="layui-form find-user" action="">
         <div class="layui-form-item">
             <div class="">
@@ -17,7 +17,10 @@
                     </div>
                     <span class="nick-name">王不留行</span>
                     <p class="sign">null</p>
-                    <i class="apply-btn" onclick="applyFriend(this)"></i>
+                    <#--<i class="apply-btn iconfont icon-tianjiahaoyou"></i>-->
+                    <svg class="icon apply-btn btn-icon" aria-hidden="true">
+                        <use xlink:href="#icon-tianjiahaoyou"></use>
+                    </svg>
                 </li>
            <#--</ul>-->
         </ul>

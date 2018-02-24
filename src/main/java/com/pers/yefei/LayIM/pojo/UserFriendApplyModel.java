@@ -3,6 +3,7 @@ package com.pers.yefei.LayIM.pojo;
 import java.util.Date;
 
 public class UserFriendApplyModel {
+
     private int itemID;
 
     private int applyUserID;
@@ -81,5 +82,25 @@ public class UserFriendApplyModel {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+
+        UserFriendApplyModel obj = (UserFriendApplyModel)o;
+        if(obj.getApplyUserID() == this.getApplyUserID() && obj.getToUserID() == this.getToUserID()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode(){
+        return (String.valueOf(this.getApplyUserID()).hashCode()) ^ (String.valueOf(this.getToUserID()).hashCode());
     }
 }

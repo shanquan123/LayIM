@@ -50,6 +50,12 @@
         select * from tbl_user where userID = #{userID} limit 1;
     </select>
 
+ <!-- 根据userIDs 查询 user -->
+    <select id="queryUserByUserIDs" parameterType="list" resultType="com.pers.yefei.LayIM.pojo.User">
+        select * from tbl_user where userID in
+        <foreach collection="list" item="userID" open="(" close=")" separator=",">#{userID}</foreach>
+    </select>
+
 
 
 

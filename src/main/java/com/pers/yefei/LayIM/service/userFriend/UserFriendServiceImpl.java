@@ -1,5 +1,6 @@
 package com.pers.yefei.LayIM.service.userFriend;
 
+import com.pers.yefei.LayIM.component.UserFriendApplySerializer;
 import com.pers.yefei.LayIM.dao.userFriend.IUserFriendDao;
 import com.pers.yefei.LayIM.enumenate.UserFriendStatusEnum;
 import com.pers.yefei.LayIM.pojo.User;
@@ -7,14 +8,16 @@ import com.pers.yefei.LayIM.pojo.UserFriendApplyModel;
 import com.pers.yefei.LayIM.pojo.UserGroup;
 import com.pers.yefei.LayIM.service.user.IUserService;
 import com.pers.yefei.LayIM.utils.DateUtil;
+import com.pers.yefei.LayIM.utils.DuplicateUtil;
 import com.pers.yefei.LayIM.utils.exception.OutOfUserApplyCountException;
 import com.pers.yefei.LayIM.utils.exception.ParameterException;
 import com.pers.yefei.LayIM.utils.exception.UserWasFriendException;
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.*;
 
 
 @Component("userFriendService")
@@ -72,16 +75,37 @@ public class UserFriendServiceImpl implements IUserFriendService {
 
     }
 
+    @Override
+    public JSONArray queryUserFriendApply(int userID){
+        List<UserFriendApplyModel> applyList = userFriendDao.queryUserFriendApply(userID, UserFriendStatusEnum.APPLIED.getStatus());
+        DuplicateUtil.unique(applyList);
+
+        if(applyList.size() == 0){
+            return new JSONArray();
+        }
+
+        List<User> userList = queryUserList(applyList);
+
+        return UserFriendApplySerializer.format2JSONArray(applyList, userList);
+    }
+
+    private List<User> queryUserList(List<UserFriendApplyModel> applyList){
+        List<Integer> userIDList = new ArrayList<>();
+        for (UserFriendApplyModel um : applyList){
+            userIDList.add(um.getApplyUserID());
+        }
+        return userService.queryUserByUserIDs(userIDList);
+    }
+
+
 
     @Transactional
     @Override
-    public void agreeFriend(int applyItemID, int toUserID, int toGroupID){
+    public User agreeFriend(int applyItemID, int toUserID, int toGroupID){
 
         //校验申请是否有效
         UserFriendApplyModel item = userFriendDao.getFriendApplyByItemID(applyItemID);
-        if(item == null || toUserID != item.getToUserID() || item.getStatus() == UserFriendStatusEnum.APPLIED.getStatus()){
-            throw new ParameterException();
-        }
+        checkApply(item, toUserID);
 
         //校验要添加的groupID是否有效
         if (userFriendDao.countUserGroup(toUserID, toGroupID) == 0 ){
@@ -98,13 +122,15 @@ public class UserFriendServiceImpl implements IUserFriendService {
         }
 
         //反向添加好友操作
-        if( !this.checkUserFriend(fromUserID, toUserID) ){
+        if( !this.checkUserFriend(toUserID, fromUserID) ){
             userFriendDao.insertUserFriendItem(toGroupID, fromUserID);
         }
 
         //更新申请状态
         item.setStatus(UserFriendStatusEnum.AGREED.getStatus());
         userFriendDao.updateUserApplyFriend(item);
+
+        return userService.getUserByUserID(item.getApplyUserID());
 
     }
 
@@ -114,14 +140,19 @@ public class UserFriendServiceImpl implements IUserFriendService {
 
         //校验申请是否有效
         UserFriendApplyModel item = userFriendDao.getFriendApplyByItemID(applyItemID);
-        if(item == null || toUserID != item.getToUserID() || item.getStatus() == UserFriendStatusEnum.APPLIED.getStatus()){
-            throw new ParameterException();
-        }
+        checkApply(item, toUserID);
 
         //更新申请状态
         item.setStatus(UserFriendStatusEnum.REFUSED.getStatus());
         userFriendDao.updateUserApplyFriend(item);
 
+    }
+
+    private boolean checkApply(UserFriendApplyModel item, int toUserID){
+        if(item == null || toUserID != item.getToUserID() || item.getStatus() != UserFriendStatusEnum.APPLIED.getStatus()){
+            throw new ParameterException();
+        }
+        return true;
     }
 
 }

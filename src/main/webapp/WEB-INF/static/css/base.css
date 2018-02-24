@@ -18,6 +18,20 @@ a:hover{text-decoration: none;}
 
 
 .find-user-container-template>.layim-tab-content,.find-user-container>.layim-tab-content{margin-top:20px;}
-.find-user-container .layui-layim-list .apply-btn {padding:12px; background:url(/static/images/icon.png); background-position: -123px -328px;display: inline-block; margin: -30px 0px -6px 14px; float: right;; visibility: visible;}
+
 
 .layui-m-layer .layui-row>div {margin-top: 10px}
+
+.icon {
+    width: 1em; height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}
+.btn-icon { margin: -40px 0px -6px 14px; float: right;font-size:36px!important;}
+.agree-btn {margin-right: 50px;}
+
+
+
+
+

@@ -25,11 +25,32 @@ function confirm(msg, yesCallback){
 }
 
 
+function onLayimReady(callback){
+    if (typeof callback != 'function'){
+        console.error('callback must be a function!' )
+        return false;
+    }
+
+    if (layim){
+        callback()
+
+    }else{
+        setTimeout(function () {
+            onLayimReady(callback)
+        }, 50)
+    }
+}
+
+
 function post(url, postData, success){
     $.post(url, postData, function(response){
-        if(response.code == 1){
-            if( typeof success == 'function')
+        if(response.code == 1) {
+            if (typeof success == 'function')
                 success(response)
+
+        }else if(response.code == 2){
+            alert('服务正忙，请稍后重试！')
+
         }else{
 
             if(response.message){
@@ -39,6 +60,16 @@ function post(url, postData, success){
             }
 
             alert(msg)
+        }
+
+    }, 'json')
+}
+
+function postQuietly(url, postData, success){
+    $.post(url, postData, function(response){
+        if(response.code == 1){
+            if( typeof success == 'function')
+                success(response)
         }
 
     }, 'json')

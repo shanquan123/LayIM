@@ -74,6 +74,15 @@ public class UserFriendDaoImpl implements IUserFriendDao {
     }
 
     @Override
+    public List<UserFriendApplyModel> queryUserFriendApply(int userID, int status){
+        HashMap params = new HashMap();
+        params.put("userID", userID);
+        params.put("status", status);
+
+        return sqlSession.selectList("com.pers.yefei.LayIM.dao.userFriend.queryUserFriendApply", params);
+    }
+
+    @Override
     public int updateUserApplyFriend(UserFriendApplyModel userFriendApplyModel){
         userFriendApplyModel.setModifiedTime(new Date());
         return sqlSession.update("com.pers.yefei.LayIM.dao.userFriend.updateUserApplyFriend", userFriendApplyModel);

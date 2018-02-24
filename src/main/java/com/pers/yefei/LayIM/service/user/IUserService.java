@@ -9,4 +9,8 @@ public interface IUserService {
     List<User> queryUserByKeywords(String keywords, int pageNo, int pageSize);
 
     int countUserByKeywords(String keywords);
+
+    List<User> queryUserByUserIDs(List<Integer> userIDs);
+
+    User getUserByUserID(int userID);
 }

@@ -24,5 +24,13 @@ public class UserServiceImpl implements IUserService{
        return userDao.countUserByKeywords(keywords);
     }
 
+    @Override
+    public List<User> queryUserByUserIDs(List<Integer> userIDs){
+        return userDao.queryUserByUserIDs(userIDs);
+    }
 
+    @Override
+    public User getUserByUserID(int userID){
+        return userDao.getUserByUserID(userID);
+    }
 }

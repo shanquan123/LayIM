@@ -70,6 +70,14 @@ public interface IUserFriendDao {
     int insertUserApplyFriend(UserFriendApplyModel userFriendApplyModel);
 
     /**
+     * 查询未处理的好友申请
+     * @param userID
+     * @param status
+     * @return
+     */
+    List<UserFriendApplyModel> queryUserFriendApply(int userID, int status);
+
+    /**
      * 处理好友申请
      * @param userFriendApplyModel
      * @return
@@ -86,7 +94,19 @@ public interface IUserFriendDao {
      */
     int countUserApplied(int applyUserID, int toUserID, Date limitTime);
 
+    /**
+     * 获取申请详情
+     * @param itemID
+     * @return
+     */
     UserFriendApplyModel getFriendApplyByItemID(int itemID);
 
+    /**
+     * 添加好友关系
+     * @param groupID
+     * @param userID
+     * @return
+     */
     int insertUserFriendItem(int groupID, int userID);
+
 }

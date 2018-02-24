@@ -1,34 +1,11 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>LayIM 移动版</title>
-
-    <#--<link rel="stylesheet" href="//res.layui.com/layui/dist/css/layui.mobile.css">-->
-
-    <link rel="stylesheet" href="/layui/css/layui.mobile.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/base.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/login.css" />
-    <#--
-    <link id="layuicss-skinlayim-mobilecss" rel="stylesheet" href="//res.layui.com/layui/dist/css/modules/layim/mobile/layim.css?v=2.0" media="all">-->
-    <#---->
-    <link id="layuicss-skinlayim-mobilecss" rel="stylesheet" href="/layui/css/modules/layim/mobile/layim.css?v=2.0" media="all">
-    <link id="layuicss-skinlayim-mobilecss" rel="stylesheet" href="/layui/css/layui.css" media="all">
-    <script src="/layui/layui.js"></script>
-    <script src="/static/js/jquery-1.8.3.min.js"></script>
-    <script >
-        var layer
-        var userGroupList = ${userFriends}
-
-
-    </script>
-    <script src="/static/js/common.js"></script>
-</head>
+<#include "header.ftl">
+<script>var userGroupList = ${userFriends}</script>
 <body>
 
 <#include "findUser.ftl">
-<#--<script src="//res.layui.com/layui/dist/layui.js"></script>-->
+<#include "friend.ftl">
 
 
 
@@ -41,9 +18,8 @@ $(function () {
         version: '20171011'
     }).use('mobile', function(){
 
-        var mobile = layui.mobile
-                ,layim = mobile.layim
-
+        mobile = layui.mobile
+        layim = mobile.layim
         layer = mobile.layer;
 
 
@@ -91,15 +67,14 @@ $(function () {
                     if (msgList instanceof Array){
 
                         var userMsgIDArr = []
-                        for (var i = 0, len = msgList.length; i < len; i++){
-                            var msg = msgList[i]
+                        msgList.forEach(function(msg){
                             var userID = msg.fromUserID
                             var friend = findFriend(userID);
                             var userMsg = buildUserMsg(msg, friend)
                             layim.getMessage(userMsg)
 
                             userMsgIDArr.push(msg.msgID);
-                        }
+                        })
 
                         if(userMsgIDArr.length > 0){
                             readUserMsg(userMsgIDArr.join(','))
@@ -187,6 +162,11 @@ $(function () {
                 ,title: '分享与邀请'
                 ,iconUnicode: '&#xe641;' //图标字体的unicode，可不填
                 ,iconClass: '' //图标字体的class类名
+            },{
+                alias: 'apply'
+                ,title: '好友验证信息'
+                ,iconUnicode: '&#xe8ca;' //图标字体的unicode，可不填
+                ,iconClass: '' //图标字体的class类名
             }]
 
             //,isNewFriend: false //是否开启“新的朋友”
@@ -210,7 +190,18 @@ $(function () {
             layim.panel({
                 title: '新的朋友' //标题
                 <#--,tpl: '<div style="padding: 10px;"><#include "findUser.ftl"></div>' //模版-->
-                ,tpl: '<div class="find-user-container" style="padding: 10px;">'+ $('.find-user-container-template').html() +'</div>' //模版
+                ,tpl: $('.find-user-container-template').clone().addClass('find-user-container').show().get(0).outerHTML //模版
+                ,data: { //数据
+                    test: '么么哒'
+                }
+            });
+        });
+
+        //监听点击“好友验证信息”
+        layim.on('applyList', function(){
+            layim.panel({
+                title: '好友验证信息' //标题
+                ,tpl: $('.friend-apply-container-template').clone().addClass('find-user-container').show().get(0).outerHTML //模版
                 ,data: { //数据
                     test: '么么哒'
                 }
@@ -239,6 +230,7 @@ $(function () {
                     layim.showNew('More', false);
                     layim.showNew('find', false);
                     break;
+
                 case 'share':
                     layim.panel({
                         title: '邀请好友' //标题
@@ -248,6 +240,19 @@ $(function () {
                         }
                     });
                     break;
+
+                case 'apply':
+                    layim.panel({
+                        title: '好友验证信息' //标题
+                        ,tpl: $('.friend-apply-container-template').clone().addClass('friend-apply-container').show().get(0).outerHTML //模版
+                        ,data: { //数据
+                            test: '么么哒'
+                        }
+                    });
+
+                    globals.showApplyUser(true);
+                    break;
+
             }
         });
 

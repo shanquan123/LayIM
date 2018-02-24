@@ -57,7 +57,7 @@
 
     <!-- 处理好友申请 -->
     <update id="updateUserApplyFriend" parameterType="com.pers.yefei.LayIM.pojo.UserFriendApplyModel">
-        update tbl_user_apply_friend set status = #{status} and modifiedTime = #{modifiedTime} where  itemID = #{applyID} and applyUserID = #{applyUserID} and toUserID = #{toUserID}
+        update tbl_user_apply_friend set status = #{status}, modifiedTime = #{modifiedTime} where  itemID = #{itemID} and applyUserID = #{applyUserID} and toUserID = #{toUserID}
     </update>
 
     <!-- 统计最近一段时间内 对某已用户发起的添加好友申请次数 -->
@@ -70,6 +70,9 @@
     </select>
 
 
+    <select id="queryUserFriendApply" parameterType="map" resultType="com.pers.yefei.LayIM.pojo.UserFriendApplyModel">
+       select * from tbl_user_apply_friend where toUserID = #{userID} and status = #{status}
+    </select>
 
     <insert id="insertUserFriendItem" parameterType="map">
       insert into tbl_user_friend_item (groupID, userID) value (#{groupID}, #{userID})

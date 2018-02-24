@@ -1,13 +1,16 @@
 package com.pers.yefei.LayIM.web.controller;
 
 import com.pers.yefei.LayIM.component.SessionManager;
+import com.pers.yefei.LayIM.component.UserSerializer;
 import com.pers.yefei.LayIM.pojo.User;
+import com.pers.yefei.LayIM.pojo.UserFriendApplyModel;
 import com.pers.yefei.LayIM.service.user.IUserService;
 import com.pers.yefei.LayIM.service.userFriend.IUserFriendService;
 import com.pers.yefei.LayIM.service.userMsg.IUserMsgService;
 import com.pers.yefei.LayIM.utils.ResponseUtil;
 import com.pers.yefei.LayIM.utils.exception.ParameterException;
 import com.pers.yefei.LayIM.utils.exception.ServerBaseException;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +44,7 @@ public class UserFriendController {
 
 
     @RequestMapping("/find.ajax")
-    public void ajaxFindUser(HttpServletRequest request, HttpServletResponse response, String keywords) throws IOException, InterruptedException {
+    public void ajaxFindUser(HttpServletRequest request, HttpServletResponse response, String keywords){
 
         try{
             if(keywords.equals('%')){
@@ -67,7 +70,7 @@ public class UserFriendController {
     }
 
     @RequestMapping("/apply.ajax")
-    public void ajaxApply(HttpServletRequest request, HttpServletResponse response, int groupID, int toUserID, String remark) throws IOException, InterruptedException {
+    public void ajaxApply(HttpServletRequest request, HttpServletResponse response, int groupID, int toUserID, String remark){
 
         try{
             User user = sessionManager.getUserFromSession(request);
@@ -84,14 +87,37 @@ public class UserFriendController {
         }
     }
 
-    @RequestMapping("/agree.ajax")
-    public void ajaxAgree(HttpServletRequest request, HttpServletResponse response, int toUserID, int toGroupID) throws IOException, InterruptedException {
+    @RequestMapping("/query_apply.ajax")
+    public void ajaxGetAppling(HttpServletRequest request, HttpServletResponse response){
 
         try{
             User user = sessionManager.getUserFromSession(request);
-            userFriendService.agreeFriend(user.getUserID(), toUserID, toGroupID);
+            JSONArray list = userFriendService.queryUserFriendApply(user.getUserID());
 
-            ResponseUtil.writeResponseSuccess(response);
+            JSONObject msgData = new JSONObject();
+            msgData.put("applyList", list);
+            ResponseUtil.writeResponseSuccess(response, msgData);
+
+        } catch (ServerBaseException e) {
+            LOGGER.error(e.toString(), e);
+            ResponseUtil.writeResponseFailure(response, e);
+        } catch (Exception e) {
+            LOGGER.error(e.toString(), e);
+            ResponseUtil.writeResponseFailure(response, e);
+        }
+    }
+
+    @RequestMapping("/agree.ajax")
+    public void ajaxAgree(HttpServletRequest request, HttpServletResponse response, int applyItemID, int toGroupID){
+
+        try{
+            User user = sessionManager.getUserFromSession(request);
+            User applyUser = userFriendService.agreeFriend(applyItemID, user.getUserID(), toGroupID);
+
+            JSONObject msgData = new JSONObject();
+            JSONObject userJson = UserSerializer.user2JSONObject(applyUser);
+            msgData.put("user", userJson);
+            ResponseUtil.writeResponseSuccess(response, msgData);
 
         } catch (ServerBaseException e) {
             LOGGER.error(e.toString(), e);
@@ -103,11 +129,11 @@ public class UserFriendController {
     }
 
     @RequestMapping("/refuse.ajax")
-    public void ajaxReject(HttpServletRequest request, HttpServletResponse response, int toUserID, int appItemID) throws IOException, InterruptedException {
+    public void ajaxReject(HttpServletRequest request, HttpServletResponse response, int applyItemID) {
 
         try{
             User user = sessionManager.getUserFromSession(request);
-            userFriendService.refuseFriend(appItemID, toUserID);
+            userFriendService.refuseFriend(applyItemID, user.getUserID());
 
             ResponseUtil.writeResponseSuccess(response);
 

@@ -1,9 +1,7 @@
 package com.pers.yefei.LayIM.dao.user;
 
 import com.pers.yefei.LayIM.pojo.User;
-import com.pers.yefei.LayIM.pojo.UserFriendApplyModel;
 
-import java.util.Date;
 import java.util.List;
 
 public interface IUserDao {
@@ -57,4 +55,6 @@ public interface IUserDao {
     int countUserByKeywords(String keywords);
 
     User getUserByUserID(int userID);
+
+    List<User> queryUserByUserIDs(List<Integer> userIDs);
 }
