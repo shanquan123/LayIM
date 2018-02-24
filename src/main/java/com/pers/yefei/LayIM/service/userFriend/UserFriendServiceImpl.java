@@ -56,7 +56,7 @@ public class UserFriendServiceImpl implements IUserFriendService {
     public void applyFriend(int userID, int toUserID, int userGroupID, String remark){
 
         int countUserApplied = userFriendDao.countUserApplied(userID, toUserID, DateUtil.getDateAfterDays(-30));
-        if(countUserApplied > 1){
+        if(countUserApplied > 0){
             throw new OutOfUserApplyCountException();
         }
 
