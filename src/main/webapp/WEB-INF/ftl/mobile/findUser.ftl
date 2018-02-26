@@ -10,19 +10,16 @@
 
     <div class="layim-tab-content layui-show" >
         <ul class="layim-list-friend layui-layim-list list-friend-future">
-            <#--<ul class="layui-layim-list layim-list-history">-->
-                <li class="friend-item" u-id="1" style="display: none">
-                    <div>
-                        <img class="avatar" src="https://avatars2.githubusercontent.com/u/14289678?s=460&amp;v=4">
-                    </div>
-                    <span class="nick-name">王不留行</span>
-                    <p class="sign">null</p>
-                    <#--<i class="apply-btn iconfont icon-tianjiahaoyou"></i>-->
-                    <svg class="icon apply-btn btn-icon" aria-hidden="true">
-                        <use xlink:href="#icon-tianjiahaoyou"></use>
-                    </svg>
-                </li>
-           <#--</ul>-->
+            <li class="friend-item" u-id="" style="display: none">
+                <div>
+                    <img class="avatar" src="">
+                </div>
+                <span class="nick-name"></span>
+                <p class="sign"></p>
+                <svg class="icon apply-btn btn-icon" aria-hidden="true">
+                    <use xlink:href="#icon-tianjiahaoyou"></use>
+                </svg>
+            </li>
         </ul>
     </div>
 </div>
@@ -38,9 +35,6 @@
                 $select.append('<option value="'+ item.id +'">'+ item.groupname +'</option>')
             })
         }
-        //
-        // $label = $('<label class="layui-form-label">选择分组</label>')
-        // $item = $('<div class="layui-input-block"></div>').append($select)
 
         $label = $('<div class="layui-col-xs3 layui-col-sm3">选择分组</div>')
         $item = $('<div class="layui-col-xs9 layui-col-sm9"></div>').append($select)
@@ -50,9 +44,6 @@
 
     function buildRemark(){
         $remark = $('<input type="text" name="remark" required  lay-verify="required" placeholder="请输入备注" autocomplete="off" class="layui-input apply">');
-
-        // $label = $('<label class="layui-form-label">备  注</label>');
-        // $item = $('<div class="layui-input-block"></div>').append($remark);
 
         $label = $('<div class="layui-col-xs3 layui-col-sm3">备  注</div>')
         $item = $('<div class="layui-col-xs8 layui-col-sm8 layui-col-xs-offset1 layui-col-sm-offset1"></div>').append($remark)

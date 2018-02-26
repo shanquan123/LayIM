@@ -1,6 +1,7 @@
 package com.pers.yefei.LayIM.service.login;
 
-import com.pers.yefei.LayIM.component.SessionManager;
+import com.pers.yefei.LayIM.component.bean.SessionManager;
+import com.pers.yefei.LayIM.component.bean.UserAvatarManager;
 import com.pers.yefei.LayIM.config.LayimSupport;
 import com.pers.yefei.LayIM.dao.user.IUserDao;
 import com.pers.yefei.LayIM.dao.login.ILoginDao;
@@ -29,6 +30,10 @@ public class LoginServiceImpl implements ILoginService{
 
     @Autowired
     private SessionManager sessionManager;
+
+    @Autowired
+    private UserAvatarManager userAvatarManager;
+
 
 
     @Override
@@ -138,11 +143,7 @@ public class LoginServiceImpl implements ILoginService{
             return null;
         }
 
-        String avatar = user.getAvatar();
-        if(avatar != null && !avatar.trim().equals("") && !avatar.startsWith("http")){
-            String host = layimSupport.getResourceHost();
-            user.setAvatar(host + avatar);
-        }
+        userAvatarManager.rewriteAvatar(user);
 
         return user;
     }

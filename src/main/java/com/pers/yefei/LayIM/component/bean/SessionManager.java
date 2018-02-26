@@ -1,4 +1,4 @@
-package com.pers.yefei.LayIM.component;
+package com.pers.yefei.LayIM.component.bean;
 
 
 

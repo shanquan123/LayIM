@@ -1,9 +1,8 @@
 package com.pers.yefei.LayIM.web.controller;
 
-import com.pers.yefei.LayIM.component.SessionManager;
+import com.pers.yefei.LayIM.component.bean.SessionManager;
 import com.pers.yefei.LayIM.component.UserSerializer;
 import com.pers.yefei.LayIM.pojo.User;
-import com.pers.yefei.LayIM.pojo.UserFriendApplyModel;
 import com.pers.yefei.LayIM.service.user.IUserService;
 import com.pers.yefei.LayIM.service.userFriend.IUserFriendService;
 import com.pers.yefei.LayIM.service.userMsg.IUserMsgService;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
 

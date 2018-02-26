@@ -321,7 +321,7 @@ $(function () {
 
 
         //获取未读消息
-        setInterval(getUnreadMsg, 2000)
+        setInterval(getUnreadMsg, 5000)
 
 
     });

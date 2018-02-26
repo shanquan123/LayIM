@@ -3,9 +3,9 @@
         <ul class="layim-list-friend layui-layim-list list-friend-apply">
             <li class="friend-item" u-id="1" style="display: none">
                 <div>
-                    <img class="avatar" src="https://avatars2.githubusercontent.com/u/14289678?s=460&amp;v=4">
+                    <img class="avatar" src="">
                 </div>
-                <span class="nick-name">王不留行</span>
+                <span class="nick-name"></span>
                 <p class="remark">请求加为好友</p>
                 <svg class="icon agree-btn friend-act-btn btn-icon" aria-hidden="true">
                     <use xlink:href="#icon-tongguo" act="agree"></use>
@@ -168,8 +168,7 @@
 
         //获取好友申请
         onLayimReady(function(){
-            setInterval(getApplyList, 3000)
-            // getApplyList()
+            setInterval(getApplyList, 10000)
         });
 
 

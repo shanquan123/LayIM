@@ -1,6 +1,6 @@
 package com.pers.yefei.LayIM.web.controller;
 
-import com.pers.yefei.LayIM.component.SessionManager;
+import com.pers.yefei.LayIM.component.bean.SessionManager;
 import com.pers.yefei.LayIM.component.UserGroupSerializer;
 import com.pers.yefei.LayIM.pojo.User;
 import com.pers.yefei.LayIM.pojo.UserGroup;

@@ -113,8 +113,9 @@
 		</property>
 	</bean>
 
-	<bean id="projectConfig" class="com.pers.yefei.LayIM.config.LayimSupport"></bean>
-	<bean id="sessionMagager" class="com.pers.yefei.LayIM.component.SessionManager"></bean>
+	<bean id="layimSupport" class="com.pers.yefei.LayIM.config.LayimSupport"></bean>
+	<bean id="sessionMagager" class="com.pers.yefei.LayIM.component.bean.SessionManager"></bean>
+	<bean id="userAvatarManager" class="com.pers.yefei.LayIM.component.bean.UserAvatarManager"></bean>
 
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

@@ -1,11 +1,9 @@
 package com.pers.yefei.LayIM.web.interceptor;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.pers.yefei.LayIM.component.SessionManager;
+import com.pers.yefei.LayIM.component.bean.SessionManager;
 import com.pers.yefei.LayIM.pojo.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

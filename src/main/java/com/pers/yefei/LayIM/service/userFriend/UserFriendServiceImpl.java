@@ -1,6 +1,7 @@
 package com.pers.yefei.LayIM.service.userFriend;
 
 import com.pers.yefei.LayIM.component.UserFriendApplySerializer;
+import com.pers.yefei.LayIM.component.bean.UserAvatarManager;
 import com.pers.yefei.LayIM.dao.userFriend.IUserFriendDao;
 import com.pers.yefei.LayIM.enumenate.UserFriendStatusEnum;
 import com.pers.yefei.LayIM.pojo.User;
@@ -29,18 +30,26 @@ public class UserFriendServiceImpl implements IUserFriendService {
     @Autowired
     private IUserService userService;
 
+    @Autowired
+    private UserAvatarManager userAvatarManager;
+
     @Override
     public List<UserGroup> queryUserGroupAndFriends(int userID){
         List<UserGroup> userGroupList = userFriendDao.queryUserGroup(userID);
         if (userGroupList != null && userGroupList.size() > 0){
             for (UserGroup userGroup: userGroupList){
-                List<User> friends = userFriendDao.queryUserFriendByGroupID(userGroup.getGroupID());
+                List<User> friends = queryFriendsByGroupID(userGroup.getGroupID());
                 userGroup.setFriends(friends);
             }
         }
         return userGroupList;
     }
 
+    private List<User> queryFriendsByGroupID(int groupID){
+        List<User> userList = userFriendDao.queryUserFriendByGroupID(groupID);
+        userAvatarManager.rewriteAvatar(userList);
+        return userList;
+    }
 
     @Override
     public boolean checkUserFriend(int userId, int friendUserID){
