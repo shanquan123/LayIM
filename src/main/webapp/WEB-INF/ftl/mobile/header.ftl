@@ -17,6 +17,7 @@
     <link id="layuicss-skinlayim-mobilecss" rel="stylesheet" href="/layui/css/layui.css" media="all">
     <script src="/layui/layui.js"></script>
     <script src="/static/js/jquery-1.8.3.min.js"></script>
+    <script src="/static/js/md5.js"></script>
     <script >
         var layer, mobile, layim, globals={}
 

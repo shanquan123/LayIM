@@ -1,30 +1,9 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<title>注册-IM</title>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-	<meta name="renderer" content="webkit">
-	<meta name="mobile-agent" content="format=html5; url=https://m.suiyixiao.com">
-	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-	<link rel="stylesheet" type="text/css" href="/static/css/base.css" />
-	<link rel="stylesheet" type="text/css" href="/static/css/login.css" />
-    <link rel="stylesheet" href="/layui/css/layui.mobile.css">
-    <link id="layuicss-skinlayim-mobilecss" rel="stylesheet" href="/layui/css/modules/layim/mobile/layim.css?v=2.0" media="all">
-    <script src="/layui/layui.js"></script>
-    <script src="/static/js/jquery-1.8.3.min.js"></script>
-    <#--<script src="/layui/layer.js"></script>-->
-    <script>
-        layui.use(['layer'], function(){
-            layer = layui.layer
-        })
-    </script>x`
-    <script src="/static/js/md5.js"></script>
-    <script src="/static/js/common.js"></script>
-
-</head>
+<#include "header.ftl">
 <body>
-	<div class="login-bg"></div>
+
+<div class="login-bg"></div>
 	<form action="" method="post">
 		<img src="/static/images/logo.png" class="login-logo" />
 		<div class="/login-wrap login-con">
@@ -66,38 +45,50 @@
 	}
 
 
-    $(".form-item").blur(function(event){
-		checkItem($(this))
-	})
+    layui.config({
+        version: '20171011'
+    }).use('mobile', function() {
+
+        mobile = layui.mobile
+        layer = mobile.layer;
 
 
-    $("#submit").click(function(event){
-		event.preventDefault();
-        if (checkItem($(".form-item"))  &&  checkoutPassword()){
-			var postData = {
-			    userName: $('[name=username]').val(),
-                nickName: $('[name=nickname]').val(),
-                password: $.md5($('[name=password]').val())
-			}
-			var url = '/rest/login/register.ajax'
-			post(url, postData, function(response){
-			    if(response.code == 1){
-					alert('注册成功！')
-					setTimeout(function(){
-					    location.href = '/rest/mobile/mobile.html'
-					}, 2000)
-				}
-			})
-		}
-	})
+        $(".form-item").blur(function(event){
+            checkItem($(this))
+        })
 
 
-	$('[name=username]').blur(function(){
-	    var userName = $(this).val();
-	    if(userName){
-	        post('/rest/login/check_username.ajax',{userName:userName})
-		}
-	})
+        $("#submit").click(function(event){
+            event.preventDefault();
+            if (checkItem($(".form-item"))  &&  checkoutPassword()){
+                var postData = {
+                    userName: $('[name=username]').val(),
+                    nickName: $('[name=nickname]').val(),
+                    password: $.md5($('[name=password]').val())
+                }
+                var url = '/rest/login/register.ajax'
+                post(url, postData, function(response){
+                    if(response.code == 1){
+                        alert('注册成功！')
+                        setTimeout(function(){
+                            location.href = '/rest/mobile/mobile.html'
+                        }, 2000)
+                    }
+                })
+            }
+        })
+
+
+        $('[name=username]').blur(function(){
+            var userName = $(this).val();
+            if(userName){
+                post('/rest/login/check_username.ajax',{userName:userName})
+            }
+        })
+
+
+    })
+
 
 
 
