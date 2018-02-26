@@ -17,6 +17,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 	
 	private static final String LOGIN_URL = "/rest/login/login.html";
 
+	private static final String INDEX_URL = "/rest/mobile/mobile.html";
+
 	@Autowired
 	private SessionManager sessionManager;
 
@@ -31,6 +33,9 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 			User user = sessionManager.getUserFromSession(request);
 			if (user == null){
 				response.sendRedirect(contextPath + LOGIN_URL);
+				return false;
+			}else if(requestUri.equals("/")){
+				response.sendRedirect(contextPath + INDEX_URL);
 				return false;
 			}
 
